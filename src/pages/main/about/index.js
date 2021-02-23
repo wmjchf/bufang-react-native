@@ -1,11 +1,17 @@
-/* eslint-disable prettier/prettier */
 import React from 'react';
 import {View, Text} from 'react-native';
-const About = () => {
+import {connect} from 'react-redux';
+
+const About = (porps) => {
   return (
     <View>
-      <Text>ABOUT</Text>
+      <Text>{porps.count}</Text>
     </View>
   );
 };
-export default About;
+const stateMapToProp = (state) => {
+  return {
+    count: state.count,
+  };
+};
+export default connect(stateMapToProp)(About);
