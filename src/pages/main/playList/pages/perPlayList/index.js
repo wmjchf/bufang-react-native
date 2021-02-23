@@ -1,11 +1,10 @@
-/* eslint-disable prettier/prettier */
 import React from 'react';
 import {View, Text} from 'react-native';
-const Habit = () => {
+const PerPlayList = () => {
   return (
     <View>
-      <Text>HABIT</Text>
+      <Text>PerPlayList</Text>
     </View>
   );
 };
-export default Habit;
+export default PerPlayList;

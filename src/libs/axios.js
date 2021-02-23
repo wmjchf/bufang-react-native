@@ -1,6 +1,5 @@
-/* eslint-disable prettier/prettier */
 import axios from 'axios';
-import {setting} from '@/config';
+import {setting} from '../config';
 import StorageUtil from './storage';
 const codeMessage = {
   200: '服务器成功返回请求的数据。',
@@ -20,7 +19,7 @@ const codeMessage = {
   504: '网关超时。',
 };
 axios.defaults.baseURL = setting.baseUrl;
-axios.defaults.timeout = 10000;
+axios.defaults.timeout = 100000;
 axios.defaults.headers.post['Content-Type'] =
   'application/x-www-form-urlencoded; charset=utf-8';
 // 创建一个axios实例
@@ -39,11 +38,10 @@ axios.interceptors.request.use(
     const access_token = await StorageUtil.get(' access_token');
     const token =
       config.url === '/cms/user/refresh' ? refresh_token : access_token;
-    if (!token) {
-      window.location.href = '/login';
-    }
-    token && (config.headers.Authorization = `Bearer ${token}`);
-
+    // if (!token) {
+    //   window.location.href = '/login';
+    // }
+    // token && (config.headers.Authorization = `Bearer ${token}`);
     return config;
   },
   (error) => {

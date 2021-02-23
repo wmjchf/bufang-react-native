@@ -1,51 +1,46 @@
-/* eslint-disable prettier/prettier */
 import React from 'react';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import Icon from 'react-native-vector-icons/Ionicons';
-import Home from './home';
-import About from './about';
-import Habit from './habit';
-import Person from './person';
+import {connect} from 'react-redux';
 
 const TabNav = createBottomTabNavigator();
 
-const MainApp = () => {
+const MainApp = (props) => {
+  // tabbar配置
+  const tabbar = props.tabbar;
   const navigatorOptions = {
-    activeTintColor: 'red',
+    activeTintColor: props.theme.mainColor,
     inactiveTintColor: 'gray',
   };
-  const homeOptions = {
-    tabBarIcon: ({focused, color, size}) => {
-      // console.log(focused, color, size, 'dddd');
-      return <Icon name="book" size={20} color={color} />;
-    },
-  };
-  const aboutOptions = {
-    tabBarIcon: ({focused, color, size}) => {
-      return <Icon name="flag" size={20} color={color} />;
-    },
-  };
-  const habitOptions = {
-    tabBarIcon: ({focused, color, size}) => {
-      return <Icon name="football-outline" size={20} color={color} />;
-    },
-  };
-  const persionOptions = {
-    tabBarIcon: ({focused, color, size}) => {
-      return <Icon name="game-controller-sharp" size={20} color={color} />;
-    },
+  // 生成tabbar
+  const generateTabbar = (tabbarItem) => {
+    const options = {
+      tabBarIcon: ({focused, color, size}) => {
+        return <Icon name={tabbarItem.icon} size={20} color={color} />;
+      },
+      title: tabbarItem.title,
+    };
+    return (
+      <TabNav.Screen
+        key={tabbarItem.name}
+        name={tabbarItem.name}
+        component={tabbarItem.component}
+        options={options}
+      />
+    );
   };
   return (
     <TabNav.Navigator tabBarOptions={navigatorOptions}>
-      <TabNav.Screen name="home" component={Home} options={homeOptions} />
-      <TabNav.Screen name="about" component={About} options={aboutOptions} />
-      <TabNav.Screen name="habit" component={Habit} options={habitOptions} />
-      <TabNav.Screen
-        name="person"
-        component={Person}
-        options={persionOptions}
-      />
+      {tabbar.map((tabbarItem) => {
+        return generateTabbar(tabbarItem);
+      })}
     </TabNav.Navigator>
   );
 };
-export default MainApp;
+const stateMapToProp = (state) => {
+  return {
+    tabbar: state.tabbar,
+    theme: state.theme,
+  };
+};
+export default connect(stateMapToProp)(MainApp);

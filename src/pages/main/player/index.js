@@ -2,7 +2,7 @@ import React from 'react';
 import {View, Text} from 'react-native';
 import {connect} from 'react-redux';
 
-const About = (porps) => {
+const Player = (porps) => {
   return (
     <View>
       <Text>{porps.count}</Text>
@@ -14,4 +14,4 @@ const stateMapToProp = (state) => {
     count: state.count,
   };
 };
-export default connect(stateMapToProp)(About);
+export default connect(stateMapToProp)(Player);
