@@ -10,7 +10,7 @@ const MainApp = (props) => {
   const tabbar = props.tabbar;
   const navigatorOptions = {
     activeTintColor: props.theme.mainColor,
-    inactiveTintColor: 'gray',
+    inactiveTintColor: props.theme.unSelectTabColor,
   };
   // 生成tabbar
   const generateTabbar = (tabbarItem) => {

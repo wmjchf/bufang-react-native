@@ -1,4 +1,5 @@
 import React from 'react';
+import {StatusBar} from 'react-native';
 import {NavigationContainer} from '@react-navigation/native';
 import {createStackNavigator} from '@react-navigation/stack';
 import {connect} from 'react-redux';
@@ -18,11 +19,18 @@ const App = (porps) => {
     },
   };
   return (
-    <NavigationContainer>
-      <Stack.Navigator>
-        <Stack.Screen name="main" component={Main} options={mainHeaderOption} />
-      </Stack.Navigator>
-    </NavigationContainer>
+    <>
+      <StatusBar backgroundColor="red" />
+      <NavigationContainer>
+        <Stack.Navigator>
+          <Stack.Screen
+            name="main"
+            component={Main}
+            options={mainHeaderOption}
+          />
+        </Stack.Navigator>
+      </NavigationContainer>
+    </>
   );
 };
 const stateMapToProp = (state) => {
