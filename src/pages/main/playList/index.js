@@ -1,5 +1,4 @@
 import React, {useState, useEffect} from 'react';
-import {View, StatusBar} from 'react-native';
 import {createMaterialTopTabNavigator} from '@react-navigation/material-top-tabs';
 import {connect} from 'react-redux';
 import PerPlayList from './pages/perPlayList';
@@ -26,7 +25,6 @@ const PlayList = (props) => {
   const _getPlayListCategory = async () => {
     const res = await getPlayListCategory();
     const tags = handleTagsData(res.tags);
-    console.log(tags);
     setPlayList(tags);
   };
 
@@ -43,7 +41,7 @@ const PlayList = (props) => {
   }, []);
   return (
     playList.length > 0 && (
-      <Tab.Navigator tabBarOptions={tabBarOptions}>
+      <Tab.Navigator tabBarOptions={tabBarOptions} lazy={true}>
         {generateTab()}
       </Tab.Navigator>
     )

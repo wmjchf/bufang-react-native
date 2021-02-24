@@ -111,7 +111,9 @@ axios.interceptors.response.use(
 export function axiosGet(url, params, config) {
   return new Promise((resolve, reject) => {
     axios
-      .get(url, params)
+      .get(url, {
+        params,
+      })
       .then((res) => {
         resolve(res);
       })
