@@ -2,7 +2,7 @@ import React, {useState, useEffect} from 'react';
 import {createMaterialTopTabNavigator} from '@react-navigation/material-top-tabs';
 import {connect} from 'react-redux';
 import PerPlayList from './pages/perPlayList';
-import {getPlayListCategory} from '../../../api/playList';
+import {getPlayListCategory} from '@/api/playList';
 import {handleTagsData} from './utils';
 
 const Tab = createMaterialTopTabNavigator();

@@ -2,7 +2,7 @@
 import React, {useEffect, useState} from 'react';
 import {View, FlatList, StyleSheet} from 'react-native';
 import {PlayListItem} from './components/PlayListItem';
-import {getPlayList} from '../../../../../api/playList';
+import {getPlayList} from '@/api/playList';
 
 const renderItem = ({item}) => {
   return <PlayListItem info={item} />;

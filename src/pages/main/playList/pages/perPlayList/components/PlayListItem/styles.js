@@ -1,5 +1,5 @@
 import {StyleSheet} from 'react-native';
-import commonStyle from '../../../../../../../style/common';
+import commonStyle from '@/style/common';
 export const styles = StyleSheet.create({
   playListItem: {
     width: 170,
