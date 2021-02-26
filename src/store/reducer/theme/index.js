@@ -1,8 +1,5 @@
-const data = {
-  mainColor: 'red',
-  unSelectTabColor: 'gray',
-};
-export const theme = (state = data, action) => {
+import data from './data';
+export const theme = (state = data.value, action) => {
   switch (action.type) {
     default:
       return state;

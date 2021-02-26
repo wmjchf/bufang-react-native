@@ -1,6 +1,5 @@
 import React from 'react';
 import {View, Text} from 'react-native';
-import {connect} from 'react-redux';
 
 const Player = (porps) => {
   return (
@@ -9,9 +8,4 @@ const Player = (porps) => {
     </View>
   );
 };
-const stateMapToProp = (state) => {
-  return {
-    count: state.count,
-  };
-};
-export default connect(stateMapToProp)(Player);
+export default Player;
