@@ -1,6 +1,6 @@
 import React from 'react';
 import {View, Text, ImageBackground} from 'react-native';
-import {styles} from './styles';
+import {styles} from './style';
 import IconFont from '@/iconfont';
 
 export const PlayListItem = (props) => {
