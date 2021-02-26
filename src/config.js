@@ -1,3 +1,3 @@
 export const setting = {
-  baseUrl: 'http://10.0.0.119:3000',
+  baseUrl: 'http://192.168.31.212:3000',
 };
