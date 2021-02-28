@@ -5,6 +5,7 @@ import {styles} from './style';
 import {PlayListItem} from './components/PlayListItem';
 import {getPlayList} from '@/api/playList';
 import {ListFooter} from '@/components/ListFooter';
+import dataStore from '@/libs/dataStore';
 
 const renderItem = ({item}) => {
   return <PlayListItem info={item} key={item.id} />;
@@ -23,6 +24,7 @@ const PerPlayList = (props) => {
   const [refreshing] = useState(false);
   let [more, setMore] = useState(true);
   let [data, setData] = useState([]);
+  let [isFirst, setisFirst] = useState(true);
   const [offset, setOffset] = useState(1);
   // 请求参数
   const rerquestOption = useMemo(() => {
@@ -37,11 +39,37 @@ const PerPlayList = (props) => {
   const _getPlayList = async () => {
     if (more) {
       setIsLoading(true);
-      const res = await getPlayList(rerquestOption);
+      const resultNet = await dataStore.fetchNetGetData(
+        '/top/playlist',
+        rerquestOption,
+      );
       setIsLoading(false);
-      setData(data.concat(res.playlists));
-      setMore(res.more);
+      resultNet && setData(data.concat(resultNet.playlists));
+      resultNet && setMore(resultNet.more);
     }
+  };
+  // 第一次本地获取数据
+  const _getPlayListLocal = async () => {
+    setIsLoading(true);
+    const resultLocal = await dataStore.fetchLocalData(
+      {
+        url: '/top/playlist',
+        type: route.name,
+      },
+      rerquestOption,
+    );
+    resultLocal && setData(data.concat(resultLocal.playlists));
+    const resultNet = await dataStore.fetchNetGetData(
+      {
+        url: '/top/playlist',
+        type: route.name,
+      },
+      rerquestOption,
+    );
+    setIsLoading(false);
+    setisFirst(false);
+    resultNet && setData(data.concat(resultNet.playlists));
+    resultNet && resultNet.more;
   };
   const _loadData = () => {
     setOffset(offset + 10);
@@ -52,9 +80,15 @@ const PerPlayList = (props) => {
     more = true;
     data = [];
   };
+  // 第一次本地加载数据
+  useEffect(() => {
+    _getPlayListLocal();
+  }, []);
   // 刚开始进来时获取数据
   useEffect(() => {
-    _getPlayList();
+    if (!isFirst) {
+      _getPlayList();
+    }
   }, [rerquestOption]);
 
   return (

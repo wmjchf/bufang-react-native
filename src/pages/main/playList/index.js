@@ -1,15 +1,12 @@
-import React, {useState, useEffect} from 'react';
+import React, {useEffect} from 'react';
 import {createMaterialTopTabNavigator} from '@react-navigation/material-top-tabs';
 import {connect} from 'react-redux';
+import {getCategoryListData} from '@/store/reducer/categoryList/action';
 import PerPlayList from './pages/perPlayList';
-import {getPlayListCategory} from '@/api/playList';
-import {handleTagsData} from './utils';
 
 const Tab = createMaterialTopTabNavigator();
 
 const PlayList = (props) => {
-  const [playList, setPlayList] = useState([]);
-
   const tabBarOptions = {
     scrollEnabled: true,
     activeTintColor: props.theme.mainColor,
@@ -22,14 +19,8 @@ const PlayList = (props) => {
     },
   };
 
-  const _getPlayListCategory = async () => {
-    const res = await getPlayListCategory();
-    const tags = handleTagsData(res.tags);
-    setPlayList(tags);
-  };
-
   const generateTab = () => {
-    return playList.map((item) => {
+    return props.categoryList.dataList.map((item) => {
       return (
         <Tab.Screen key={item.id} name={item.name} component={PerPlayList} />
       );
@@ -37,10 +28,11 @@ const PlayList = (props) => {
   };
 
   useEffect(() => {
-    _getPlayListCategory();
+    props.getCategoryListData();
   }, []);
+
   return (
-    playList.length > 0 && (
+    props.categoryList.dataList.length > 0 && (
       <Tab.Navigator tabBarOptions={tabBarOptions} lazy={true}>
         {generateTab()}
       </Tab.Navigator>
@@ -51,6 +43,8 @@ const PlayList = (props) => {
 const stateMapToProp = (state) => {
   return {
     theme: state.theme,
+    categoryList: state.categoryList,
   };
 };
-export default connect(stateMapToProp)(PlayList);
+const actionMapToProp = {getCategoryListData};
+export default connect(stateMapToProp, actionMapToProp)(PlayList);

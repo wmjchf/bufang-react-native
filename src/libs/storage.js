@@ -10,16 +10,13 @@ class StorageUtil {
    * @param key
    * @returns {Promise<TResult>}
    */
-  static get(key) {
-    return AsyncStorage.getItem(key)
-      .then((value) => {
-        if (value && value !== '') {
-          const jsonValue = JSON.parse(value);
-          return jsonValue;
-        }
-        return null;
-      })
-      .catch(() => null);
+  static async get(key) {
+    const value = await AsyncStorage.getItem(key);
+    if (value) {
+      const _value = JSON.parse(value);
+      return _value;
+    }
+    return null;
   }
 
   /**
@@ -28,8 +25,8 @@ class StorageUtil {
    * @param value
    * @returns {Promise<string>}
    */
-  static save(key, value) {
-    return AsyncStorage.setItem(key, JSON.stringify(value));
+  static async save(key, value) {
+    return await AsyncStorage.setItem(key, JSON.stringify(value));
   }
 
   /**

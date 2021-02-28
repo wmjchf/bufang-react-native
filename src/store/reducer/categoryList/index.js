@@ -2,10 +2,10 @@ import {HANDLESUCCESS, HANDLESFAIL, RESET} from './action-types';
 
 import data from './data';
 
-export const playList = (state = data.value, action) => {
+export const categoryList = (state = data.value, action) => {
   switch (action.type) {
     case HANDLESUCCESS:
-      return data.handleSuccess(action.dataList);
+      return data.handleSuccess(action.dataList, action.isCover);
     case HANDLESFAIL:
       return data.handleFail();
     case RESET:
