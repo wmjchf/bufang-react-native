@@ -3,6 +3,7 @@ import {createMaterialTopTabNavigator} from '@react-navigation/material-top-tabs
 import {connect} from 'react-redux';
 import {getCategoryListData} from '@/store/reducer/categoryList/action';
 import PerPlayList from './pages/perPlayList';
+import {Nav} from './components/nav';
 
 const Tab = createMaterialTopTabNavigator();
 
@@ -32,11 +33,14 @@ const PlayList = (props) => {
   }, []);
 
   return (
-    props.categoryList.dataList.length > 0 && (
-      <Tab.Navigator tabBarOptions={tabBarOptions} lazy={true}>
-        {generateTab()}
-      </Tab.Navigator>
-    )
+    <>
+      <Nav />
+      {props.categoryList.dataList.length > 0 && (
+        <Tab.Navigator tabBarOptions={tabBarOptions} lazy={true}>
+          {generateTab()}
+        </Tab.Navigator>
+      )}
+    </>
   );
 };
 

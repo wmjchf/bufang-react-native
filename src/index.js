@@ -20,13 +20,13 @@ const App = (porps) => {
   };
   return (
     <>
-      <StatusBar backgroundColor="red" />
+      {/* <StatusBar backgroundColor="red" /> */}
       <NavigationContainer>
-        <Stack.Navigator>
+        <Stack.Navigator headerMode="none">
           <Stack.Screen
             name="main"
             component={Main}
-            options={mainHeaderOption}
+            // options={mainHeaderOption}
           />
         </Stack.Navigator>
       </NavigationContainer>

@@ -3,7 +3,6 @@ import React, {useEffect, useState, useMemo} from 'react';
 import {View, FlatList} from 'react-native';
 import {styles} from './style';
 import {PlayListItem} from './components/PlayListItem';
-import {getPlayList} from '@/api/playList';
 import {ListFooter} from '@/components/ListFooter';
 import dataStore from '@/libs/dataStore';
 
@@ -40,8 +39,15 @@ const PerPlayList = (props) => {
     if (more) {
       setIsLoading(true);
       const resultNet = await dataStore.fetchNetGetData(
-        '/top/playlist',
+        {
+          url: '/top/playlist',
+          type: route.name,
+        },
         rerquestOption,
+        (saveKey, newRes, oldRes) => {
+          oldRes.playlists = oldRes.playlists.concat(newRes.playlists);
+          dataStore.saveData(saveKey, oldRes);
+        },
       );
       setIsLoading(false);
       resultNet && setData(data.concat(resultNet.playlists));
@@ -51,13 +57,10 @@ const PerPlayList = (props) => {
   // 第一次本地获取数据
   const _getPlayListLocal = async () => {
     setIsLoading(true);
-    const resultLocal = await dataStore.fetchLocalData(
-      {
-        url: '/top/playlist',
-        type: route.name,
-      },
-      rerquestOption,
-    );
+    const resultLocal = await dataStore.fetchLocalData({
+      url: '/top/playlist',
+      type: route.name,
+    });
     resultLocal && setData(data.concat(resultLocal.playlists));
     const resultNet = await dataStore.fetchNetGetData(
       {
@@ -65,11 +68,14 @@ const PerPlayList = (props) => {
         type: route.name,
       },
       rerquestOption,
+      (saveKey, newRes) => {
+        dataStore.saveData(saveKey, newRes);
+      },
     );
     setIsLoading(false);
     setisFirst(false);
-    resultNet && setData(data.concat(resultNet.playlists));
-    resultNet && resultNet.more;
+    resultNet && setData(resultNet.playlists);
+    resultNet && setMore(resultNet.more);
   };
   const _loadData = () => {
     setOffset(offset + 10);

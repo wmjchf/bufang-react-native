@@ -16,13 +16,19 @@ class DataStore {
     return data;
   }
   // 获取网络数据
-  async fetchNetGetData(urlObject, params) {
+  async fetchNetGetData(urlObject, params, saveData) {
     const saveKey = Object.values(urlObject).join('/');
     let res = null;
     try {
       res = await axiosGet(urlObject.url, params);
-      this.saveData(saveKey, res);
+      const oldRes = await this.fetchLocalData(urlObject);
+      if (!saveData) {
+        this.saveData(saveKey, res);
+      } else {
+        saveData(saveKey, res, oldRes);
+      }
     } catch (error) {
+      throw new Error(error.message);
     } finally {
       return res;
     }
@@ -35,6 +41,7 @@ class DataStore {
       res = await axiosPost(urlObject.url, params);
       this.saveData(saveKey, res);
     } catch (error) {
+      throw error;
     } finally {
       return res;
     }
