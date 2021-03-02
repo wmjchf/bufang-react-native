@@ -29,4 +29,6 @@ const styles = StyleSheet.create({
 
 所以我更推荐放在各自的页面去管理。
 ```
+## StatusBar+navigationBar
+请看第三方组件[react-native-nav]url(https://github.com/jineshshah36/react-native-nav)
 
