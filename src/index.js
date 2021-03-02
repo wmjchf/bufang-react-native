@@ -20,7 +20,6 @@ const App = (porps) => {
   };
   return (
     <>
-      {/* <StatusBar backgroundColor="red" /> */}
       <NavigationContainer>
         <Stack.Navigator headerMode="none">
           <Stack.Screen

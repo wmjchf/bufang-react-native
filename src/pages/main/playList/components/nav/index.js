@@ -7,6 +7,12 @@ const styles = StyleSheet.create({
     backgroundColor: 'red',
     justifyContent: 'center',
   },
+  statusBar: {
+    // StatusBar styles here (all view styles are valid)
+
+    // default iOS styles:
+    height: 32,
+  },
 });
 const style1 = StyleSheet.create({
   title: {

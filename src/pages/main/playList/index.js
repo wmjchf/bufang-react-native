@@ -1,4 +1,5 @@
 import React, {useEffect} from 'react';
+import {StatusBar, View} from 'react-native';
 import {createMaterialTopTabNavigator} from '@react-navigation/material-top-tabs';
 import {connect} from 'react-redux';
 import {getCategoryListData} from '@/store/reducer/categoryList/action';
@@ -31,7 +32,6 @@ const PlayList = (props) => {
   useEffect(() => {
     props.getCategoryListData();
   }, []);
-
   return (
     <>
       <Nav />
