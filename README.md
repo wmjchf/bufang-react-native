@@ -40,3 +40,9 @@ const styles = StyleSheet.create({
 ## StatusBar+navigationBar
 请看第三方组件[react-native-nav](https://github.com/jineshshah36/react-native-nav)，在源码里面的statusBarHeight有时需要自己设置，默认的值不适配所有的机型。
 
+## flutter调试过程的bug
+- 如果真机能调试成功，但是模拟器调试不成功，可以清除模拟器的缓存。
+
+![image](https://user-images.githubusercontent.com/36124772/110196034-b7d27680-7e7c-11eb-8edd-30cd9db321f0.png)
+
+
