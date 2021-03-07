@@ -18,15 +18,14 @@ module.exports = async function () {
 
   addEventListener('remote-next', () => skipToNext());
 
-  addEventListener('remote-previous', async (param) => {
+  addEventListener('remote-previous', async (param) => skipToPrevious());
+  addEventListener('remote-jump-forward', async ({interval}) => {
     const position = await getPosition();
-
-    if (position > 3) {
-      seekTo(0);
-    } else {
-      skipToPrevious();
-    }
+    seekTo(position + interval);
   });
-
+  addEventListener('remote-jump-backward', async ({interval}) => {
+    const position = await getPosition();
+    seekTo(position - interval);
+  });
   addEventListener('remote-seek', ({position}) => seekTo(position));
 };

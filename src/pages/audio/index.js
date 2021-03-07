@@ -1,13 +1,6 @@
 import React, {useRef, useEffect, useState} from 'react';
-import {
-  View,
-  SafeAreaView,
-  Text,
-  Dimensions,
-  Animated,
-  StyleSheet,
-} from 'react-native';
-
+import {View, SafeAreaView, Text, Animated} from 'react-native';
+import {connect} from 'react-redux';
 import TrackPlayer, {
   CAPABILITY_SEEK_TO,
   CAPABILITY_PLAY,
@@ -15,25 +8,20 @@ import TrackPlayer, {
   CAPABILITY_STOP,
   CAPABILITY_SKIP_TO_NEXT,
   CAPABILITY_SKIP_TO_PREVIOUS,
-  CAPABILITY_SET_RATING,
-  CAPABILITY_JUMP_FORWARD,
-  CAPABILITY_JUMP_BACKWARD,
-  RATING_5_STARS,
 } from 'react-native-track-player';
-import {Nav} from '@/components/Nav';
+import {AudioNav} from '@/components/AudioNav';
 
 import songs from './songs';
 import Controller from './Controller';
 import SliderComp from './SliderComp';
-
-const {width, height} = Dimensions.get('window');
+import styles from './style';
 
 // const events = [
 //   TrackPlayerEvents.PLAYBACK_STATE,
 //   TrackPlayerEvents.PLAYBACK_ERROR
 // ];
 
-export default function PlayerScreen() {
+const _Aduio = (props) => {
   const scrollX = useRef(new Animated.Value(0)).current;
 
   const slider = useRef(null);
@@ -45,7 +33,18 @@ export default function PlayerScreen() {
   const isItFromUser = useRef(true);
 
   // for tranlating the album art
-  const position = useRef(Animated.divide(scrollX, width)).current;
+  const position = useRef(Animated.divide(scrollX, props.width)).current;
+  const generateItemContainerStyle = (i) => {
+    return {
+      alignItems: 'center',
+      width: props.width,
+      transform: [
+        {
+          translateX: Animated.multiply(Animated.add(position, -i), -100),
+        },
+      ],
+    };
+  };
   // useTrackPlayerEvents([TrackPlayerEvents.PLAYBACK_STATE], (event) => {
   //   console.log(event);
   // });
@@ -55,7 +54,7 @@ export default function PlayerScreen() {
     });
 
     scrollX.addListener(({value}) => {
-      const val = Math.round(value / width);
+      const val = Math.round(value / props.width);
 
       setSongIndex(val);
     });
@@ -68,20 +67,22 @@ export default function PlayerScreen() {
       // isPlayerReady.current = true;
       await TrackPlayer.updateOptions({
         stopWithApp: true,
-        jumpInterval: 5,
+        // alwaysPauseOnInterruption: true,
         capabilities: [
+          CAPABILITY_SEEK_TO,
           CAPABILITY_PLAY,
           CAPABILITY_PAUSE,
+          CAPABILITY_STOP,
           CAPABILITY_SKIP_TO_NEXT,
           CAPABILITY_SKIP_TO_PREVIOUS,
-          CAPABILITY_JUMP_BACKWARD,
-          CAPABILITY_JUMP_FORWARD,
         ],
-        playIcon: require('../../../assets/music/play.png'),
-        pauseIcon: require('../../../assets/music/pause.png'),
-        stopIcon: require('../../../assets/music/stop.png'),
-        previousIcon: require('../../../assets/music/prev.png'),
-        nextIcon: require('../../../assets/music/next.png'),
+        compactCapabilities: [
+          TrackPlayer.CAPABILITY_PLAY,
+          TrackPlayer.CAPABILITY_PAUSE,
+          TrackPlayer.CAPABILITY_SEEK_TO,
+          TrackPlayer.CAPABILITY_SKIP_TO_NEXT,
+          TrackPlayer.CAPABILITY_SKIP_TO_PREVIOUS,
+        ],
       });
       await TrackPlayer.add(songs);
       // TrackPlayer.play();
@@ -91,9 +92,9 @@ export default function PlayerScreen() {
       TrackPlayer.addEventListener(Event.PlaybackTrackChanged, async (e) => {
         console.log('song ended', e);
 
-        const trackId = (await TrackPlayer.getCurrentTrack()) - 1; //get the current id
+        let trackId = await TrackPlayer.getCurrentTrack(); //get the current id
         console.log('track id', trackId, 'index', index.current);
-
+        trackId = trackId - 1;
         if (trackId !== index.current) {
           setSongIndex(trackId);
           isItFromUser.current = false;
@@ -152,46 +153,32 @@ export default function PlayerScreen() {
 
   const goNext = async () => {
     slider.current.scrollToOffset({
-      offset: (index.current + 1) * width,
+      offset: (index.current + 1) * props.width,
     });
 
     await TrackPlayer.play();
   };
   const goPrv = async () => {
     slider.current.scrollToOffset({
-      offset: (index.current - 1) * width,
+      offset: (index.current - 1) * props.width,
     });
 
     await TrackPlayer.play();
   };
   const renderItem = ({index, item}) => {
+    const style = generateItemContainerStyle(index);
     return (
-      <Animated.View
-        style={{
-          alignItems: 'center',
-          width: width,
-          transform: [
-            {
-              translateX: Animated.multiply(
-                Animated.add(position, -index),
-                -100,
-              ),
-            },
-          ],
-        }}>
-        <Animated.Image
-          source={item.artwork}
-          style={{width: 320, height: 320, borderRadius: 5}}
-        />
+      <Animated.View style={style}>
+        <Animated.Image source={item.artwork} style={styles.itemImg} />
       </Animated.View>
     );
   };
 
   return (
     <>
-      <Nav title="播放" />
-      <SafeAreaView style={styles.container}>
-        <SafeAreaView style={{height: 320}}>
+      <AudioNav />
+      <SafeAreaView style={[styles.container, {height: props.height}]}>
+        <SafeAreaView style={styles.itemHieght}>
           <Animated.FlatList
             ref={slider}
             horizontal
@@ -211,34 +198,16 @@ export default function PlayerScreen() {
           <Text style={styles.title}>{songs[songIndex].title}</Text>
           <Text style={styles.artist}>{songs[songIndex].artist}</Text>
         </View>
-
         <SliderComp />
-        {/* <Button title="点击" onPress={() => seekTo(100)} /> */}
         <Controller onNext={goNext} onPrv={goPrv} />
       </SafeAreaView>
     </>
   );
-}
-
-const styles = StyleSheet.create({
-  title: {
-    fontSize: 28,
-    textAlign: 'center',
-    fontWeight: '600',
-    textTransform: 'capitalize',
-    color: '#ffffff',
-  },
-  artist: {
-    fontSize: 18,
-    textAlign: 'center',
-    color: '#ffffff',
-    textTransform: 'capitalize',
-  },
-  container: {
-    justifyContent: 'space-evenly',
-    alignItems: 'center',
-    height: height,
-    maxHeight: 650,
-    backgroundColor: '#030303',
-  },
-});
+};
+const stateMapToProp = (state) => {
+  return {
+    width: state.global.width,
+    height: state.global.height,
+  };
+};
+export default connect(stateMapToProp)(_Aduio);
