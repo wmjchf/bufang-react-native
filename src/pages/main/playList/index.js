@@ -1,10 +1,9 @@
 import React, {useEffect} from 'react';
-import {StatusBar, View} from 'react-native';
 import {createMaterialTopTabNavigator} from '@react-navigation/material-top-tabs';
 import {connect} from 'react-redux';
 import {getCategoryListData} from '@/store/reducer/categoryList/action';
 import PerPlayList from './pages/perPlayList';
-import {Nav} from './components/nav';
+import {Nav} from '@/components/Nav';
 
 const Tab = createMaterialTopTabNavigator();
 
@@ -34,7 +33,7 @@ const PlayList = (props) => {
   }, []);
   return (
     <>
-      <Nav />
+      <Nav title="歌单" />
       {props.categoryList.dataList.length > 0 && (
         <Tab.Navigator tabBarOptions={tabBarOptions} lazy={true}>
           {generateTab()}

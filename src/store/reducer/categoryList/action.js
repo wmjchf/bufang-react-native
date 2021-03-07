@@ -12,6 +12,7 @@ export const getCategoryListData = (data) => {
     tags && dispatch(handleSuccess(tags, false));
     const resultNet = await dataStore.fetchNetGetData(
       {url: '/playlist/hot'},
+      {},
       (saveKey, newRes) => {
         dataStore.saveData(saveKey, newRes);
       },

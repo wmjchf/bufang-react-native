@@ -7,12 +7,6 @@ const styles = StyleSheet.create({
     backgroundColor: 'red',
     justifyContent: 'center',
   },
-  statusBar: {
-    // StatusBar styles here (all view styles are valid)
-
-    // default iOS styles:
-    height: 32,
-  },
 });
 const style1 = StyleSheet.create({
   title: {
@@ -36,10 +30,10 @@ const StatusBarConfig = {
   // color if you don't want translucency
 };
 
-export const Nav = () => {
+export const Nav = (props) => {
   return (
     <NavBar style={styles} statusBar={StatusBarConfig}>
-      <NavTitle style={style1.title}>歌单</NavTitle>
+      <NavTitle style={style1.title}>{props.title}</NavTitle>
     </NavBar>
   );
 };
