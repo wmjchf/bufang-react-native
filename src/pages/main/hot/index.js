@@ -1,11 +1,20 @@
 import React from 'react';
 import {View, Text, Button} from 'react-native';
-import WangPlugin from '../../../native/WangPlugin';
+import UMengSMSPlugin from '../../../native/UMengSMSPlugin';
 import IconFont from '../../../iconfont';
 const Hot = () => {
-  console.log(WangPlugin);
+  console.log(UMengSMSPlugin);
   const onPress = () => {
-    WangPlugin.show('我的插件', WangPlugin.SHORT);
+    UMengSMSPlugin.getVerificationCode(
+      '15868843247',
+      'SMS_213551111',
+      function (res) {
+        console.log(res);
+      },
+      function (error) {
+        console.log(error);
+      },
+    );
   };
   return (
     <View>

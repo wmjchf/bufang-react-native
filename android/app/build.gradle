@@ -130,7 +130,7 @@ android {
     }
 
     defaultConfig {
-        applicationId "com.demo"
+        applicationId "com.bufang.read"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
         versionCode 1
@@ -188,6 +188,7 @@ dependencies {
     implementation "com.facebook.react:react-native:+"  // From node_modules
     implementation "androidx.swiperefreshlayout:swiperefreshlayout:1.0.0"
     implementation project(path: ':react-native-wang-plugin')
+    implementation project(path: ':react-native-umeng-sms')
     debugImplementation("com.facebook.flipper:flipper:${FLIPPER_VERSION}") {
       exclude group:'com.facebook.fbjni'
     }

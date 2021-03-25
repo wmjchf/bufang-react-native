@@ -1,4 +1,4 @@
-package com.demo;
+package com.bufang.read;
 
 import com.facebook.react.ReactActivity;
 
