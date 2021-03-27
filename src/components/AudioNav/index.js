@@ -1,23 +1,11 @@
 import React from 'react';
 import {StyleSheet} from 'react-native';
-import NavBar, {NavTitle} from 'react-native-nav';
+import NavBar from 'react-native-nav';
 
 const styles = StyleSheet.create({
   navBar: {
     backgroundColor: '#030303',
     justifyContent: 'center',
-  },
-});
-const style1 = StyleSheet.create({
-  title: {
-    // NavTitle styles here (all text styles are valid)
-
-    // default styles:
-    fontSize: 20,
-    letterSpacing: 0.5,
-    color: '#fff',
-    fontWeight: '500',
-    textAlign: 'center',
   },
 });
 

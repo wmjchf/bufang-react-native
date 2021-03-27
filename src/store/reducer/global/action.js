@@ -8,17 +8,16 @@ export const initGlobal = () => {
   };
 };
 export const initGlobalWidth = () => {
-  const {width} = Dimensions.get('window');
+  const {width} = Dimensions.get('screen');
   return {
     type: INITGLOBALWIDTH,
     width,
   };
 };
 export const initGlobalHeight = () => {
-  const {height} = Dimensions.get('window');
+  const {height} = Dimensions.get('screen');
   return {
     type: INITGLOBALHEIGHT,
-
     height: height,
   };
 };
