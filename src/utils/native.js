@@ -5,8 +5,9 @@ export const getVerificationCode = (phoneNum, smsTemplateId) => {
     UMengSMSPlugin.getVerificationCode(
       phoneNum,
       smsTemplateId,
-      function () {
-        resolve(true);
+      function (result) {
+        const token = JSON.parse(result).data.token;
+        resolve(token);
       },
       function (error) {
         console.log(error);

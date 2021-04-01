@@ -1,4 +1,4 @@
 export const setting = {
-  baseUrl: 'http://192.168.31.212:3000',
+  baseUrl: 'http://106.15.39.119:8081/rss',
   smsTemplateId: 'SMS_213551111',
 };

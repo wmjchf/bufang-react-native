@@ -21,8 +21,12 @@ const Login = (props) => {
       }
       try {
         loading.current.showLoading();
-        await getVerificationCode(phoneNum, setting.smsTemplateId);
-        props.navigation.navigate('code', {phoneNum});
+        const token = await getVerificationCode(
+          phoneNum,
+          setting.smsTemplateId,
+        );
+
+        props.navigation.navigate('code', {phoneNum, token});
       } catch (error) {
         global.toast.show(error, 1000);
       } finally {

@@ -12,7 +12,7 @@ class Data {
 }
 
 const data = {
-  mainColor: 'red',
+  mainColor: '#38a28a',
   unSelectTabColor: 'gray',
 };
 export default Data.getInstance(data);

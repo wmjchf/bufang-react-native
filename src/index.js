@@ -5,6 +5,7 @@ import {connect} from 'react-redux';
 import Toast from 'react-native-easy-toast';
 import {initGlobal} from '@/store/reducer/global/action';
 import {Loading} from '@/components/Loading';
+import Home from './pages/home';
 import Main from './pages/main';
 import Audio from './pages/audio';
 import Login from './pages/login';
@@ -35,7 +36,7 @@ const App = (porps) => {
       <Toast ref={toast} />
       <Loading ref={loading} />
       <NavigationContainer>
-        <Stack.Navigator headerMode="none" initialRouteName="login">
+        <Stack.Navigator headerMode="none" initialRouteName="home">
           <Stack.Screen
             name="login"
             component={Login}
@@ -44,6 +45,11 @@ const App = (porps) => {
           <Stack.Screen
             name="code"
             component={Code}
+            // options={mainHeaderOption}
+          />
+          <Stack.Screen
+            name="home"
+            component={Home}
             // options={mainHeaderOption}
           />
           <Stack.Screen

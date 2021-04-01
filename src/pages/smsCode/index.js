@@ -1,11 +1,13 @@
 import React, {useState, useRef} from 'react';
 import {View, StatusBar, Text, TextInput, TouchableOpacity} from 'react-native';
 import {connect} from 'react-redux';
-import {getVerificationCode, commitVerificationCode} from '@/utils/native';
+import {getVerificationCode} from '@/utils/native';
 import {setting} from '@/config';
 import {Loading} from '@/components/Loading';
 import {SetInterval} from '@/components/SetInterval';
 import {Cursor} from '@/components/Cursor';
+import {login} from '@/api/login';
+import StorageUtil from '@/libs/storage';
 import styles from './style';
 const statusBarConfig = {
   backgroundColor: 'white',
@@ -14,25 +16,37 @@ const Code = (props) => {
   const codeNum = new Array(6).fill('');
   const [codeStr, setCodeStr] = useState('');
   const [isResetCode, setIsResetCode] = useState(false);
-  const {phoneNum} = props.route.params;
+  const {phoneNum, token} = props.route.params;
   const changeCodeStr = (values) => {
     setCodeStr(values);
   };
   const confirmCode = async () => {
     if (codeStr.length === 6) {
+      const umengVcode = codeStr;
+      const umengToken = token;
+      const phoneNumber = phoneNum;
       try {
-        loading.current.showLoading();
-        const verifyStatus = await commitVerificationCode(phoneNum, codeStr);
-        if (verifyStatus) {
-          global.toast.show('登录成功', 1000);
-        } else {
-          global.toast.show('验证码不正确', 1000);
-        }
+        const result = await login({phoneNumber, umengToken, umengVcode});
+        const {accessToken, refreshToken} = result.data;
+        StorageUtil.save('accessToken', accessToken);
+        StorageUtil.save('refreshToken', refreshToken);
+        global.toast.show('登录成功', 1000);
       } catch (error) {
-        global.toast.show(error, 1000);
-      } finally {
-        loading.current.dismissLoading();
+        console.log(error);
       }
+      // try {
+      //   loading.current.showLoading();
+      //   const verifyStatus = await commitVerificationCode(phoneNum, codeStr);
+      //   if (verifyStatus) {
+      //     global.toast.show('登录成功', 1000);
+      //   } else {
+      //     global.toast.show('验证码不正确', 1000);
+      //   }
+      // } catch (error) {
+      //   global.toast.show(error, 1000);
+      // } finally {
+      //   loading.current.dismissLoading();
+      // }
     } else {
       global.toast.show('请输入6位验证码', 1000);
     }
