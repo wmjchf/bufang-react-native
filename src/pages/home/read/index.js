@@ -25,6 +25,13 @@ const Read = (props) => {
       // marginLeft: 50,
       // marginRight: 50,
       // shadowColor: 'white',
+      shadowColor: 'black',
+      shadowOpacity: 0, //修改的地方
+      shadowRadius: 0,
+      shadowOffset: {
+        height: 0,
+      },
+      elevation: 0,
     },
     // renderIndicator: () => {
     //   return <View style={styles.indicatorStyle} />;

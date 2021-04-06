@@ -118,6 +118,7 @@ export function axiosGet(url, params, config) {
         resolve(res);
       })
       .catch((err) => {
+        console.log(err, 'a');
         reject(err);
       });
   });

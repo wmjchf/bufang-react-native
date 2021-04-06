@@ -4,6 +4,7 @@ import {theme} from './theme';
 import {playList} from './playList';
 import {categoryList} from './categoryList';
 import {global} from './global';
+import {rssRecommendList} from './rssRecommendList';
 
 export default combineReducers({
   tabbar,
@@ -11,4 +12,5 @@ export default combineReducers({
   playList,
   categoryList,
   global,
+  rssRecommendList,
 });
