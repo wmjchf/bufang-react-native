@@ -5,7 +5,7 @@ import data from './data';
 export const rssRecommendList = (state = data.value, action) => {
   switch (action.type) {
     case HANDLESUCCESS:
-      return data.handleSuccess(action.dataList);
+      return data.handleSuccess(action.dataList, action.pageNum, action.total);
     case HANDLESFAIL:
       return data.handleFail();
     case RESET:

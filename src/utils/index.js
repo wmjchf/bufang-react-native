@@ -34,3 +34,17 @@ export const deepCopy = (data) => {
   }
   return object;
 };
+
+// 数组乱序输出
+export const randomArray = (array) => {
+  const newArr = [];
+  var len = array.length;
+  for (let i = 0; i < len; i++) {
+    var index = Math.floor(Math.random() * array.length); //随机下标
+    newArr.push(array[index]); //将随机出的元素，存放新数组newArr中去
+    array.splice(index, 1); //    将随机出的元素在arr中删除
+  }
+  //arr中删除随机出的元素,arr.length-1,同时i++,导致循环不会10次,会是5次.最后得到newArr中只有一半的随机数字,arr中剩下另一半. 将其合并到一起,得到res
+  const res = [...newArr, ...array];
+  return res;
+};

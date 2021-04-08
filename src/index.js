@@ -10,6 +10,7 @@ import Main from './pages/main';
 import Audio from './pages/audio';
 import Login from './pages/login';
 import Code from './pages/smsCode';
+import RssDetail from './pages/rssDetail';
 
 const Stack = createStackNavigator();
 
@@ -60,6 +61,11 @@ const App = (porps) => {
           <Stack.Screen
             name="audio"
             component={Audio}
+            // options={mainHeaderOption}
+          />
+          <Stack.Screen
+            name="rssDetail"
+            component={RssDetail}
             // options={mainHeaderOption}
           />
         </Stack.Navigator>

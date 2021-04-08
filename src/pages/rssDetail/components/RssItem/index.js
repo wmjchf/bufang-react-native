@@ -1,30 +1,11 @@
 import React from 'react';
-import {View, Text, Image, Dimensions, TouchableOpacity} from 'react-native';
-import {useNavigation} from '@react-navigation/native';
+import {View, Text, Image, Dimensions} from 'react-native';
 import styles from './style';
 export const RssItem = (props) => {
   const {info} = props;
   const {width} = Dimensions.get('window');
-  const navigation = useNavigation();
-  const toRssDetail = () => {
-    navigation.navigate('rssDetail', {rssId: info.rssId});
-  };
   return (
     <View style={[styles.rssItem, {width}]}>
-      <TouchableOpacity onPress={toRssDetail}>
-        <View style={styles.rssItemTop}>
-          <Image
-            style={styles.rssImage}
-            source={{
-              uri: info.rssImage,
-            }}
-          />
-          <Text style={styles.rssName}>{info.rssName}</Text>
-          {/* <TouchableOpacity style={styles.followBtn}>
-          <Text style={styles.followBtnText}>关注</Text>
-        </TouchableOpacity> */}
-        </View>
-      </TouchableOpacity>
       <View
         style={[
           styles.rssItemMid,
@@ -43,7 +24,6 @@ export const RssItem = (props) => {
             </Text>
           )}
         </View>
-
         {info.rssMsgImage && (
           <View
             style={[
