@@ -26,11 +26,15 @@ const Code = (props) => {
       const umengToken = token;
       const phoneNumber = phoneNum;
       try {
+        loading.current.showLoading();
         const result = await login({phoneNumber, umengToken, umengVcode});
         const {accessToken, refreshToken} = result.data;
+        const {bufUserId, bufUserName} = result.data.bufProfileVo;
         StorageUtil.save('accessToken', accessToken);
         StorageUtil.save('refreshToken', refreshToken);
-        global.toast.show('登录成功', 1000);
+        StorageUtil.save('bufUserId', bufUserId);
+        StorageUtil.save('bufUserName', bufUserName);
+        props.navigation.push('home');
       } catch (error) {
         console.log(error);
       }

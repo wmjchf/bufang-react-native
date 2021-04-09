@@ -18,13 +18,16 @@ export const RssItem = (props) => {
             info.rssMsgContent ? '' : styles.rssItemMidLeftNo,
           ]}>
           <Text style={styles.rssItemMidLeftTitle}>{info.rssMsgTitle}</Text>
-          {info.rssMsgContent && (
+
+          {info.rssMsgContent ? (
             <Text style={styles.rssItemMidLeftContent} numberOfLines={3}>
               {info.rssMsgContent}
             </Text>
+          ) : (
+            <Text />
           )}
         </View>
-        {info.rssMsgImage && (
+        {info.rssMsgImage ? (
           <View
             style={[
               styles.rssItemMidRight,
@@ -37,6 +40,8 @@ export const RssItem = (props) => {
               }}
             />
           </View>
+        ) : (
+          <Text />
         )}
       </View>
       <View style={styles.rssItemBottom}>

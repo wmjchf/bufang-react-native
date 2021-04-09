@@ -7,14 +7,13 @@ import {
   FlatList,
   Dimensions,
   TouchableOpacity,
-  findNodeHandle,
-  UIManager,
 } from 'react-native';
 import commonStyle from '@/style/common.js';
-import {getRssContent} from '@/api/rssRecommendList';
+import {getRssContent, followRss} from '@/api/rssRecommendList';
 import {formatTime} from '@/utils/format';
 import {RssItem} from './components/RssItem';
 import styles from './style.js';
+import StorageUtil from '@/libs/storage';
 
 const renderItem = ({item}) => {
   return <RssItem info={item} key={item.rssId} />;
@@ -26,13 +25,27 @@ const RssDetail = (props) => {
   const [rssContent, setRssContent] = useState('');
   const [rssImage, setRssImage] = useState('123');
   const [rssName, setRssName] = useState('');
+  const [isFollow, setIsFollow] = useState(false);
   const {height} = Dimensions.get('screen');
   const [elementHeight, setElementHeight] = useState(0);
   const element = useRef(null);
-
+  const formatPContent = (reg, content) => {
+    let str = '';
+    for (let i = 0; i < 3; i++) {
+      let rssMsgContent = reg.exec(content);
+      rssMsgContent =
+        rssMsgContent && rssMsgContent[1].replace(/<[^<>]+>/g, '');
+      if (rssMsgContent) {
+        str = str + rssMsgContent;
+      }
+    }
+    return str;
+  };
   const getRssDetail = async (id) => {
-    const result = await getRssContent(id);
+    const bufUserId = await StorageUtil.get('bufUserId');
+    const result = await getRssContent({rssId: id, bufUserId});
     let flatListId = 1;
+    setIsFollow(result.data.followFlag === 1);
     setRssImage(result.data.rss.rssImage);
     setRssContent(result.data.rss.rssDescription);
     setRssName(result.data.rss.rssName);
@@ -40,10 +53,7 @@ const RssDetail = (props) => {
       const regImage = /src="([^"]*)"/g;
       const regP = /<p>(.*?)<\/p>/g;
       const rssMsgImage = regImage.exec(item.description);
-      let rssMsgContent = regP.exec(item.description);
-      rssMsgContent =
-        rssMsgContent && rssMsgContent[1].replace(/<[^<>]+>/g, '');
-
+      const rssMsgContent = formatPContent(regP, item.description);
       return {
         rssId: flatListId++,
         rssName: result.data.title,
@@ -57,6 +67,17 @@ const RssDetail = (props) => {
       };
     });
     setRssContentList(list);
+  };
+  const _followRss = async () => {
+    const bufUserId = await StorageUtil.get('bufUserId');
+    const result = await followRss({
+      rssId,
+      bufUserId,
+      followingFlag: !isFollow ? 1 : 0,
+    });
+    if (result.code === 200) {
+      setIsFollow(!isFollow);
+    }
   };
   useEffect(() => {
     getRssDetail(rssId);
@@ -85,8 +106,12 @@ const RssDetail = (props) => {
           <View style={styles.rssDetailTopDescription}>
             <Text style={styles.rssDetailTopDescriptionText}>{rssContent}</Text>
           </View>
-          <TouchableOpacity style={styles.followBtn}>
-            <Text style={styles.followBtnText}>关注</Text>
+          <TouchableOpacity style={styles.followBtn} onPress={_followRss}>
+            {isFollow ? (
+              <Text style={styles.followBtnText}>取消关注</Text>
+            ) : (
+              <Text style={styles.followBtnText}>关注</Text>
+            )}
           </TouchableOpacity>
         </View>
         <View style={{height: height - elementHeight}}>

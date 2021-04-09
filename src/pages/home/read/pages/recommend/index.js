@@ -22,7 +22,6 @@ const Recommend = () => {
   const {dataList, pageNum, size, total} = useSelector(
     (state) => state.rssRecommendList,
   );
-  console.log(pageNum, size);
   useEffect(() => {
     dispatch(getRssRecommendListData({pageSize: size, pageNum}));
   }, []);

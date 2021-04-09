@@ -74,7 +74,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
   },
   rssItemMidRightCol: {
-    marginTop: 20,
+    marginTop: 0,
     flexDirection: 'row',
   },
   rssItemMidRightImage: {

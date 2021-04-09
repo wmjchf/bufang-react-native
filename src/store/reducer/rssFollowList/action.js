@@ -1,6 +1,7 @@
 import {HANDLESUCCESS, HANDLESFAIL, RESET} from './action-types';
-import {getRssRecommendList} from '@/api/rssRecommendList';
+import {getRssFollowList} from '@/api/rssRecommendList';
 import {formatTime} from '@/utils/format';
+let rssId = 0;
 // import { rando} from "@/utils";
 const formatPContent = (reg, content) => {
   let str = '';
@@ -13,31 +14,29 @@ const formatPContent = (reg, content) => {
   }
   return str;
 };
-export const getRssRecommendListData = (data) => {
+export const getRssFollowListData = (data) => {
   return async (dispatch) => {
-    const res = await getRssRecommendList(data);
-
-    let list = res.data.data.filter((item) => {
-      return item.rssContent.rss;
-    });
-    list = list.map((item) => {
+    const res = await getRssFollowList(data);
+    // res.data.data.filter((item) => {
+    //   return item.rssContent.rss;
+    // });
+    const list = res.data.data.map((item) => {
       const regImage = /src="([^"]*)"/g;
       const regP = /<p>(.*?)<\/p>/g;
       const rssMsgImage = regImage.exec(
-        item.rssContent.rss.channel.item[0].description,
+        item.rssContent.channel.item[0].description,
       );
       const rssMsgContent = formatPContent(
         regP,
-        item.rssContent.rss.channel.item[0].description,
+        item.rssContent.channel.item[0].description,
       );
-
       return {
-        rssId: item.rss.rssId,
-        rssName: item.rssContent.rss.channel.title,
+        rssId: rssId++,
+        rssName: item.rssContent.channel.title,
         rssImage: item.rss.rssImage,
-        rssMsgTitle: item.rssContent.rss.channel.item[0].title,
+        rssMsgTitle: item.rssContent.channel.item[0].title,
         rssMsgImage: rssMsgImage && rssMsgImage[1],
-        publishTime: formatTime(item.rssContent.rss.channel.lastBuildDate),
+        publishTime: formatTime(item.rssContent.channel.lastBuildDate),
         rssMsgContent: rssMsgContent,
       };
     });
