@@ -12,16 +12,16 @@ import {RssItem} from '../components/RssItem';
 import {ListFooter} from '@/components/ListFooter';
 
 const renderItem = ({item}) => {
-  return <RssItem info={item} key={item.rssId} />;
+  return <RssItem info={item} key={item.rssId} isFollow={false} />;
 };
 const Recommend = () => {
   const dispatch = useDispatch();
   const [isLoading, setIsLoading] = useState(false);
   const [refreshing] = useState(false);
   let [more, setMore] = useState(true);
-  const {dataList, pageNum, size, total} = useSelector(
-    (state) => state.rssRecommendList,
-  );
+  const {dataList, pageNum, size, total} = useSelector((state) => {
+    return state.rssRecommendList;
+  });
   useEffect(() => {
     dispatch(getRssRecommendListData({pageSize: size, pageNum}));
   }, []);

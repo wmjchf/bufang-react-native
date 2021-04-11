@@ -13,16 +13,17 @@ import {ListFooter} from '@/components/ListFooter';
 import StorageUtil from '@/libs/storage';
 
 const renderItem = ({item}) => {
-  return <RssItem info={item} key={item.rssId} />;
+  return <RssItem info={item} key={item.rssId} isFollow={true} />;
 };
 const Follow = () => {
+  // StorageUtil.clear();
   const dispatch = useDispatch();
   const [isLoading, setIsLoading] = useState(false);
   const [refreshing] = useState(false);
   let [more, setMore] = useState(true);
-  const {dataList, pageNum, size, total} = useSelector(
-    (state) => state.rssFollowList,
-  );
+  const {dataList, pageNum, size, total} = useSelector((state) => {
+    return state.rssFollowList;
+  });
   useEffect(() => {
     StorageUtil.get('bufUserId').then((bufUserId) => {
       dispatch(getRssFollowListData({pageSize: size, pageNum, bufUserId}));

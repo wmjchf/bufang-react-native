@@ -9,3 +9,6 @@ export const followRss = (data) => axiosPostJSON('/rssFollowing/follow', data);
 
 export const getRssFollowList = (data) =>
   axiosGet('/rssFollowing/getFollowRss', data);
+
+export const collectionRss = (data, bufUserId) =>
+  axiosPostJSON(`/rssCollection/add?bufUserId=${bufUserId}`, data);
