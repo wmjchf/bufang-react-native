@@ -7,6 +7,8 @@ import {getVerificationCode} from '@/utils/native';
 // import DeviceInfo from 'react-native-device-info';
 import {Loading} from '@/components/Loading';
 import {checkPhoneNumber} from '@/utils/check';
+import commonStyle from '@/style/common';
+
 const statusBarConfig = {
   backgroundColor: 'white',
 };
@@ -48,6 +50,7 @@ const Login = (props) => {
         <TextInput
           style={styles.telephoneInput}
           value={phoneNum}
+          selectionColor={commonStyle.primary}
           placeholder="请输入手机号"
           onChangeText={changePhoneNum}
           keyboardType="phone-pad"

@@ -1,0 +1,6 @@
+framework module UMSMS {
+  umbrella header "UMSMS.h"
+
+  export *
+  module * { export * }
+}
