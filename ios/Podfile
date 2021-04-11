@@ -5,7 +5,8 @@ platform :ios, '10.0'
 
 target 'demo' do
   config = use_native_modules!
-
+  pod 'UMCommon'
+  pod 'UMDevice'
   use_react_native!(:path => config["reactNativePath"])
 
   target 'demoTests' do

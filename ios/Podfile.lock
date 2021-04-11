@@ -318,6 +318,9 @@ PODS:
     - React
   - RNVectorIcons (8.0.0):
     - React-Core
+  - UMCommon (7.2.8):
+    - UMDevice
+  - UMDevice (1.2.0)
   - Yoga (1.14.0)
   - YogaKit (1.18.1):
     - Yoga (~> 1.14)
@@ -380,6 +383,8 @@ DEPENDENCIES:
   - RNScreens (from `../node_modules/react-native-screens`)
   - RNSVG (from `../node_modules/react-native-svg`)
   - RNVectorIcons (from `../node_modules/react-native-vector-icons`)
+  - UMCommon
+  - UMDevice
   - Yoga (from `../node_modules/react-native/ReactCommon/yoga`)
 
 SPEC REPOS:
@@ -395,6 +400,8 @@ SPEC REPOS:
     - Flipper-RSocket
     - FlipperKit
     - OpenSSL-Universal
+    - UMCommon
+    - UMDevice
     - YogaKit
 
 EXTERNAL SOURCES:
@@ -521,9 +528,11 @@ SPEC CHECKSUMS:
   RNScreens: b6c9607e6fe47c1b6e2f1910d2acd46dd7ecea3a
   RNSVG: ce9d996113475209013317e48b05c21ee988d42e
   RNVectorIcons: f67a1abce2ec73e62fe4606e8110e95a832bc859
+  UMCommon: 87e2bf6a5c44df6f60509219a7279d9f94c31d24
+  UMDevice: da050ba77e5075b1ec08303065722d25f599e483
   Yoga: 4bd86afe9883422a7c4028c00e34790f560923d6
   YogaKit: f782866e155069a2cca2517aafea43200b01fd5a
 
-PODFILE CHECKSUM: 6ab382c97af0d564319427efdc2509cb8ae8b1f0
+PODFILE CHECKSUM: ef8c518fe24d54a2312cea854246d57942bef8a5
 
 COCOAPODS: 1.10.1

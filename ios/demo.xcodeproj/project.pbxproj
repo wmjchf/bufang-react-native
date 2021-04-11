@@ -21,6 +21,11 @@
 		9A2EA54E262189AD0075B0E9 /* RNPlaceholder.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3FD0EB550C246E195182929 /* RNPlaceholder.swift */; };
 		9A2EA54F262189AD0075B0E9 /* RNPlaceholder.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3FD0EB550C246E195182929 /* RNPlaceholder.swift */; };
 		9A2EA550262189AD0075B0E9 /* RNPlaceholder.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3FD0EB550C246E195182929 /* RNPlaceholder.swift */; };
+		9A39346A2622AE6E00DEC946 /* libc++.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 9A3934692622AE6E00DEC946 /* libc++.tbd */; };
+		9A3934702622AEAF00DEC946 /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 9A39346F2622AEAF00DEC946 /* libz.tbd */; };
+		9A9311CE2622BD8C00BD5858 /* UMSMS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9A9311CD2622BD8C00BD5858 /* UMSMS.framework */; };
+		9A9311D62622C89200BD5858 /* CalendarManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A9311D52622C89200BD5858 /* CalendarManager.m */; };
+		9A9311E72622DDC400BD5858 /* UMengSMSPlugin.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A9311E62622DDC400BD5858 /* UMengSMSPlugin.m */; };
 		A00DC1C6D75BE7833B75054A /* libPods-demo-demoTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C571BFB2D24BD573740CCCD0 /* libPods-demo-demoTests.a */; };
 		CBDA38F681BD347E454F3E01 /* libPods-demo-tvOSTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D9213FA7541869FF968881A9 /* libPods-demo-tvOSTests.a */; };
 		CFDC59ED5F883805A8EBB8AE /* libPods-demo-tvOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B4525C734BB84517B275AA8F /* libPods-demo-tvOS.a */; };
@@ -62,6 +67,14 @@
 		7CE972CA1B14F53608906922 /* Pods-demo.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-demo.release.xcconfig"; path = "Target Support Files/Pods-demo/Pods-demo.release.xcconfig"; sourceTree = "<group>"; };
 		7F98D7E07C86B0567782FEBA /* Pods-demo-demoTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-demo-demoTests.release.xcconfig"; path = "Target Support Files/Pods-demo-demoTests/Pods-demo-demoTests.release.xcconfig"; sourceTree = "<group>"; };
 		81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = LaunchScreen.storyboard; path = demo/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		9A3934692622AE6E00DEC946 /* libc++.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = "libc++.tbd"; path = "usr/lib/libc++.tbd"; sourceTree = SDKROOT; };
+		9A39346F2622AEAF00DEC946 /* libz.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = usr/lib/libz.tbd; sourceTree = SDKROOT; };
+		9A9311CD2622BD8C00BD5858 /* UMSMS.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = UMSMS.framework; sourceTree = "<group>"; };
+		9A9311D32622C22B00BD5858 /* constant.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = constant.h; path = demo/constant.h; sourceTree = "<group>"; };
+		9A9311D42622C80800BD5858 /* CalendarManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = CalendarManager.h; path = demo/CalendarManager.h; sourceTree = "<group>"; };
+		9A9311D52622C89200BD5858 /* CalendarManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = CalendarManager.m; path = demo/CalendarManager.m; sourceTree = "<group>"; };
+		9A9311DB2622D0F600BD5858 /* UMengSMSPlugin.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = UMengSMSPlugin.h; path = demo/UMengSMSPlugin.h; sourceTree = "<group>"; };
+		9A9311E62622DDC400BD5858 /* UMengSMSPlugin.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = UMengSMSPlugin.m; path = demo/UMengSMSPlugin.m; sourceTree = "<group>"; };
 		9B4D66A2268D4B6071807A1A /* Pods-demo-tvOSTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-demo-tvOSTests.debug.xcconfig"; path = "Target Support Files/Pods-demo-tvOSTests/Pods-demo-tvOSTests.debug.xcconfig"; sourceTree = "<group>"; };
 		A5809EEBAD51EEDEEC8C048D /* Pods-demo-tvOS.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-demo-tvOS.debug.xcconfig"; path = "Target Support Files/Pods-demo-tvOS/Pods-demo-tvOS.debug.xcconfig"; sourceTree = "<group>"; };
 		B3FD0EB550C246E195182929 /* RNPlaceholder.swift */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 4; includeInIndex = 0; lastKnownFileType = sourcecode.swift; path = RNPlaceholder.swift; sourceTree = "<group>"; };
@@ -87,6 +100,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9A9311CE2622BD8C00BD5858 /* UMSMS.framework in Frameworks */,
+				9A3934702622AEAF00DEC946 /* libz.tbd in Frameworks */,
+				9A39346A2622AE6E00DEC946 /* libc++.tbd in Frameworks */,
 				0B837A8B8FF08D926A9AE2E5 /* libPods-demo.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -137,6 +153,11 @@
 				13B07FB61A68108700A75B9A /* Info.plist */,
 				81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */,
 				13B07FB71A68108700A75B9A /* main.m */,
+				9A9311D32622C22B00BD5858 /* constant.h */,
+				9A9311D42622C80800BD5858 /* CalendarManager.h */,
+				9A9311D52622C89200BD5858 /* CalendarManager.m */,
+				9A9311DB2622D0F600BD5858 /* UMengSMSPlugin.h */,
+				9A9311E62622DDC400BD5858 /* UMengSMSPlugin.m */,
 			);
 			name = demo;
 			sourceTree = "<group>";
@@ -144,6 +165,9 @@
 		2D16E6871FA4F8E400B85C8A /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				9A9311CD2622BD8C00BD5858 /* UMSMS.framework */,
+				9A39346F2622AEAF00DEC946 /* libz.tbd */,
+				9A3934692622AE6E00DEC946 /* libc++.tbd */,
 				ED297162215061F000B7C4FE /* JavaScriptCore.framework */,
 				ED2971642150620600B7C4FE /* JavaScriptCore.framework */,
 				03E21997915F61F0317DBF2C /* libPods-demo.a */,
@@ -166,7 +190,6 @@
 				9B4D66A2268D4B6071807A1A /* Pods-demo-tvOSTests.debug.xcconfig */,
 				3BB08FA25D09991C5D1D9D0F /* Pods-demo-tvOSTests.release.xcconfig */,
 			);
-			name = Pods;
 			path = Pods;
 			sourceTree = "<group>";
 		};
@@ -648,6 +671,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				13B07FBC1A68108700A75B9A /* AppDelegate.m in Sources */,
+				9A9311E72622DDC400BD5858 /* UMengSMSPlugin.m in Sources */,
+				9A9311D62622C89200BD5858 /* CalendarManager.m in Sources */,
 				13B07FC11A68108700A75B9A /* main.m in Sources */,
 				22218BB5E65541A785700539 /* RNPlaceholder.swift in Sources */,
 			);
@@ -741,6 +766,11 @@
 				CLANG_ENABLE_MODULES = YES;
 				CURRENT_PROJECT_VERSION = 1;
 				ENABLE_BITCODE = NO;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/demo",
+					"$(PROJECT_DIR)",
+				);
 				INFOPLIST_FILE = demo/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				OTHER_LDFLAGS = (
@@ -748,7 +778,7 @@
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.$(PRODUCT_NAME:rfc1034identifier)";
+				PRODUCT_BUNDLE_IDENTIFIER = com.bufang.read;
 				PRODUCT_NAME = demo;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 4.0;
@@ -763,6 +793,11 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CURRENT_PROJECT_VERSION = 1;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/demo",
+					"$(PROJECT_DIR)",
+				);
 				INFOPLIST_FILE = demo/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				OTHER_LDFLAGS = (
@@ -770,7 +805,7 @@
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.$(PRODUCT_NAME:rfc1034identifier)";
+				PRODUCT_BUNDLE_IDENTIFIER = com.bufang.read;
 				PRODUCT_NAME = demo;
 				SWIFT_VERSION = 4.0;
 				VERSIONING_SYSTEM = "apple-generic";
