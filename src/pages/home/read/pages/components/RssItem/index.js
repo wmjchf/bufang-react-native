@@ -1,26 +1,34 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {View, Text, Image, Dimensions, TouchableOpacity} from 'react-native';
 import {useNavigation} from '@react-navigation/native';
-import {collectionRss} from '@/api/rssRecommendList';
+import {collectionRss, cancelCollection} from '@/api/rssRecommendList';
 import StorageUtil from '@/libs/storage';
 import styles from './style';
 export const RssItem = (props) => {
   const {info, isFollow} = props;
   const {width} = Dimensions.get('window');
   const navigation = useNavigation();
+  const [isCollection, setIsCollection] = useState(() => {
+    return info.collectionFlag === 1;
+  });
   const toRssDetail = () => {
     navigation.navigate('rssDetail', {rssId: info.rssId});
   };
   const _collectionRss = async () => {
     const bufUserId = await StorageUtil.get('bufUserId');
-    const res = await collectionRss({content: info.content}, bufUserId);
-    console.log(res);
+    const res = await collectionRss({...info.content}, bufUserId);
+    info.collectionId = res.data;
+    if (res.code === 200) {
+      setIsCollection(true);
+    }
   };
   const unCollectionRss = async () => {
     // const bufUserId = await StorageUtil.get('bufUserId');
-    // const res = await collectionRss({content: info.content}, bufUserId);
-    // console.log(res);
-    console.log('取消关注');
+    const res = await cancelCollection({collectionId: info.collectionId});
+    console.log(res);
+    if (res.code === 200) {
+      setIsCollection(false);
+    }
   };
   return (
     <View style={[styles.rssItem, {width}]}>
@@ -92,36 +100,40 @@ export const RssItem = (props) => {
           <Text />
         )}
       </View>
-      <View style={styles.rssItemBottom}>
-        <Text style={styles.publishTime}>{info.publishTime}</Text>
-        {/* <Image
+      {isFollow ? (
+        <View style={styles.rssItemBottom}>
+          <Text style={styles.publishTime}>{info.publishTime}</Text>
+          {/* <Image
           style={styles.rssItemBottomImageCollection}
           source={require('@/assets/image/collection.png')}
         /> */}
-        <View style={styles.rssItemBottomImageContainer}>
-          {info.collectionFlag === 0 ? (
-            <TouchableOpacity onPress={_collectionRss}>
+          <View style={styles.rssItemBottomImageContainer}>
+            {!isCollection ? (
+              <TouchableOpacity onPress={_collectionRss}>
+                <Image
+                  style={styles.rssItemBottomImageUnCollection}
+                  source={require('@/assets/image/unCollection.png')}
+                />
+              </TouchableOpacity>
+            ) : (
+              <TouchableOpacity onPress={unCollectionRss}>
+                <Image
+                  style={styles.rssItemBottomImageUnCollection}
+                  source={require('@/assets/image/collection.png')}
+                />
+              </TouchableOpacity>
+            )}
+            <TouchableOpacity>
               <Image
-                style={styles.rssItemBottomImageUnCollection}
-                source={require('@/assets/image/unCollection.png')}
+                style={styles.rssItemBottomImageShare}
+                source={require('@/assets/image/share.png')}
               />
             </TouchableOpacity>
-          ) : (
-            <TouchableOpacity onPress={unCollectionRss}>
-              <Image
-                style={styles.rssItemBottomImageUnCollection}
-                source={require('@/assets/image/collection.png')}
-              />
-            </TouchableOpacity>
-          )}
-          <TouchableOpacity>
-            <Image
-              style={styles.rssItemBottomImageShare}
-              source={require('@/assets/image/share.png')}
-            />
-          </TouchableOpacity>
+          </View>
         </View>
-      </View>
+      ) : (
+        <Text />
+      )}
     </View>
   );
 };

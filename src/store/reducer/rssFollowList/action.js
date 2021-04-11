@@ -16,6 +16,7 @@ const formatPContent = (reg, content) => {
 export const getRssFollowListData = (data) => {
   return async (dispatch) => {
     const res = await getRssFollowList(data);
+
     res.data.data.filter((item) => {
       return item.rssContent.rss;
     });
@@ -41,6 +42,7 @@ export const getRssFollowListData = (data) => {
           rssMsgContent: rssMsgContent,
           collectionFlag: item.collectionFlag,
           content: item,
+          collectionId: item.collectionId,
         };
       });
     dispatch(handleSuccess(list || [], res.data.pageNum, res.data.total));

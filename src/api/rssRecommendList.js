@@ -1,4 +1,4 @@
-import {axiosGet, axiosPostJSON} from '@/libs/axios';
+import {axiosGet, axiosPostJSON, axiosDelete} from '@/libs/axios';
 
 export const getRssRecommendList = (data) => axiosGet('/content/list', data);
 
@@ -12,3 +12,6 @@ export const getRssFollowList = (data) =>
 
 export const collectionRss = (data, bufUserId) =>
   axiosPostJSON(`/rssCollection/add?bufUserId=${bufUserId}`, data);
+
+export const cancelCollection = (data) =>
+  axiosDelete('/rssCollection/delete', data);

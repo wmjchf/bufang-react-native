@@ -8,7 +8,6 @@ const Splash = () => {
   const navigation = useNavigation();
   const judgeLogin = async () => {
     const accessToken = await StorageUtil.get('accessToken');
-    console.log(accessToken, 'aaa');
     if (accessToken) {
       setTimeout(() => {
         navigation.navigate('home');

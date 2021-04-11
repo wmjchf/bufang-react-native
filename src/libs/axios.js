@@ -49,23 +49,22 @@ axios.interceptors.request.use(
 );
 
 const checkSelfStatus = async (response) => {
-  const error = new Error();
+  const refreshToken = await StorageUtil.get('refreshToken');
   if (response) {
     const data = response.data;
-    const status = response.status;
-    error.message =
-      typeof data === 'string' ? codeMessage[status] : data.message;
-    error.code = data.code;
-    if (data.code === 10051) {
+    if (data.code === 91002) {
       const config = response.config;
       if (!isRefreshing) {
         isRefreshing = true;
         try {
-          const res = await axiosGet('/cms/user/refresh');
-          StorageUtil.set('access_token', res.access_token);
-          StorageUtil.set('refresh_token', res.refresh_token);
-          config.headers.Authorization = `Bearer ${res.access_token}`;
-          requests.forEach((cb) => cb(res.access_token));
+          const res = await axiosGet('/user/accessTokenRefresh', {
+            refreshToken: refreshToken,
+          });
+          await StorageUtil.save('accessToken', res.data.accessToken);
+          await StorageUtil.save('refreshToken', res.data.refreshToken);
+          // config.headers.Authorization = `Bearer ${res.access_token}`;
+          config.headers.accessToken = res.data.accessToken;
+          requests.forEach((cb) => cb(res.data.accessToken));
           requests = [];
           return instance(config);
         } catch (err) {
@@ -84,22 +83,21 @@ const checkSelfStatus = async (response) => {
         });
       }
     }
-    if (data.code === 10013) {
-      window.location.href = '/login';
-    }
-  } else {
-    error.message = '连接超时，请稍后再试...';
   }
-  return error;
+  return response;
 };
 
 axios.interceptors.response.use(
-  (response) => {
+  async (response) => {
+    if (response.data.code === 91002) {
+      const r = await checkSelfStatus(response);
+      return r.data;
+    }
     return response.data;
   },
   async (error) => {
-    const e = await checkSelfStatus(error.response);
-    throw e;
+    // const e = await checkSelfStatus(error.response);
+    return error;
   },
 );
 /**
@@ -117,7 +115,7 @@ export function axiosGet(url, params, config) {
         resolve(res);
       })
       .catch((err) => {
-        console.log(err, 'a');
+        console.log(err.message, 'a');
         reject(err);
       });
   });
@@ -172,6 +170,23 @@ export function axiosPostQuery(url, params) {
   return new Promise((resolve, reject) => {
     axios
       .post(url, params)
+      .then((res) => {
+        resolve(res);
+      })
+      .catch((err) => {
+        reject(err);
+      });
+  });
+}
+/**
+ * get方法，对应get请求
+ * @param {String} url [请求的url地址]
+ * @param {Object} params [请求时携带的参数]
+ */
+export function axiosDelete(url, params, config) {
+  return new Promise((resolve, reject) => {
+    axios
+      .delete(url, {params})
       .then((res) => {
         resolve(res);
       })
