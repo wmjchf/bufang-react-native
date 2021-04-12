@@ -25,6 +25,7 @@ const styles = StyleSheet.create({
     fontSize: commonStyle.fontSize8,
     borderRadius: 5,
     paddingLeft: 10,
+    height:45
   },
   sendCode: {
     height: 50,

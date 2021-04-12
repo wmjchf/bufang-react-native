@@ -6,6 +6,7 @@ export const getVerificationCode = (phoneNum, smsTemplateId) => {
       phoneNum,
       smsTemplateId,
       function (result) {
+        console.log(result);
         const token = JSON.parse(result).data.token;
         resolve(token);
       },
