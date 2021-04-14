@@ -1,6 +1,7 @@
 import React, {useState, useRef} from 'react';
 import {View, StatusBar, Text, TextInput, TouchableOpacity} from 'react-native';
 import {connect} from 'react-redux';
+import SafeAreaView from 'react-native-safe-area-view';
 import styles from './style';
 import {setting} from '@/config';
 import {getVerificationCode} from '@/utils/native';
@@ -40,7 +41,7 @@ const Login = (props) => {
   };
   const loading = useRef(null);
   return (
-    <View style={[styles.login, {height: props.height}]}>
+    <SafeAreaView style={[styles.login, {height: props.height}]}>
       <StatusBar {...statusBarConfig} />
       <Loading ref={loading} tip="正在获取验证码..." />
       <View style={styles.loginTitleContainer}>
@@ -72,7 +73,7 @@ const Login = (props) => {
           </View>
         </View>
       </View>
-    </View>
+    </SafeAreaView>
   );
 };
 const stateMapToProp = (state) => {

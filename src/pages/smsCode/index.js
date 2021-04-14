@@ -1,6 +1,7 @@
 import React, {useState, useRef} from 'react';
 import {View, StatusBar, Text, TextInput, TouchableOpacity} from 'react-native';
 import {connect} from 'react-redux';
+import SafeAreaView from 'react-native-safe-area-view';
 import {getVerificationCode} from '@/utils/native';
 import {setting} from '@/config';
 import {Loading} from '@/components/Loading';
@@ -11,6 +12,7 @@ import StorageUtil from '@/libs/storage';
 import styles from './style';
 const statusBarConfig = {
   backgroundColor: 'white',
+  translucent: false,
 };
 const Code = (props) => {
   const codeNum = new Array(6).fill('');
@@ -83,7 +85,7 @@ const Code = (props) => {
   //     opacityAnimate();
   //   }, []);
   return (
-    <View style={[styles.code, {height: props.height}]}>
+    <SafeAreaView style={[styles.code, {height: props.height}]}>
       <StatusBar {...statusBarConfig} />
       <Loading ref={loading} tip="正在登录..." />
       <View style={styles.codeTitleContainer}>
@@ -143,7 +145,7 @@ const Code = (props) => {
           )}
         </View>
       </View>
-    </View>
+    </SafeAreaView>
   );
 };
 const stateMapToProp = (state) => {

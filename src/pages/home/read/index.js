@@ -61,7 +61,6 @@ const Read = (props) => {
 
   return (
     <>
-      {/* <Nav title="阅读" /> */}
       <StatusBar backgroundColor={commonStyle.primary} />
       <Tab.Navigator tabBarOptions={tabBarOptions} lazy={true}>
         {generateTab()}

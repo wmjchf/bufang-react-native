@@ -1,13 +1,15 @@
 import React, {useEffect} from 'react';
-import {View, Dimensions, Text, StatusBar} from 'react-native';
+import {Dimensions, Text, StatusBar} from 'react-native';
 import {useNavigation} from '@react-navigation/native';
+import SafeAreaView from 'react-native-safe-area-view';
 import StorageUtil from '@/libs/storage';
 import commonStyle from '@/style/common';
 import styles from './style';
 
 const Splash = () => {
   const statusBarConfig = {
-    backgroundColor: 'white',
+    backgroundColor: commonStyle.primary,
+    translucent: true,
   };
   // StorageUtil.clear();
   const {height} = Dimensions.get('screen');
@@ -28,10 +30,10 @@ const Splash = () => {
     judgeLogin();
   }, []);
   return (
-    <View style={[styles.splash, {height}]}>
+    <SafeAreaView style={[styles.splash, {height}]}>
       <StatusBar {...statusBarConfig} />
       <Text style={styles.title}>欢迎来到我的世界</Text>
-    </View>
+    </SafeAreaView>
   );
 };
 

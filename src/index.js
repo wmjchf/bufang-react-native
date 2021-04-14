@@ -5,6 +5,7 @@ import {
   CardStyleInterpolators,
   HeaderStyleInterpolators,
 } from '@react-navigation/stack';
+import {SafeAreaProvider} from 'react-native-safe-area-context';
 import {connect} from 'react-redux';
 import Toast from 'react-native-easy-toast';
 import {initGlobal} from '@/store/reducer/global/action';
@@ -70,50 +71,52 @@ const App = (porps) => {
     <>
       <Toast ref={toast} />
       <Loading ref={loading} />
-      <NavigationContainer>
-        <Stack.Navigator initialRouteName="splash">
-          <Stack.Screen
-            name="splash"
-            component={Splash}
-            options={splashDeatilHeaderOption}
-          />
-          <Stack.Screen
-            name="login"
-            component={Login}
-            options={loginHeaderOption}
-          />
-          <Stack.Screen
-            name="code"
-            component={Code}
-            options={codeHeaderOption}
-          />
-          <Stack.Screen
-            name="home"
-            component={Home}
-            options={readHeaderOption}
-          />
-          <Stack.Screen
-            name="main"
-            component={Main}
-            // options={mainHeaderOption}
-          />
-          <Stack.Screen
-            name="audio"
-            component={Audio}
-            // options={mainHeaderOption}
-          />
-          <Stack.Screen
-            name="rssDetail"
-            component={RssDetail}
-            options={rssDeatilHeaderOption}
-          />
-          <Stack.Screen
-            name="contentDetail"
-            component={ContentDetail}
-            options={contentDeatilHeaderOption}
-          />
-        </Stack.Navigator>
-      </NavigationContainer>
+      <SafeAreaProvider>
+        <NavigationContainer>
+          <Stack.Navigator initialRouteName="splash">
+            <Stack.Screen
+              name="splash"
+              component={Splash}
+              options={splashDeatilHeaderOption}
+            />
+            <Stack.Screen
+              name="login"
+              component={Login}
+              options={loginHeaderOption}
+            />
+            <Stack.Screen
+              name="code"
+              component={Code}
+              options={codeHeaderOption}
+            />
+            <Stack.Screen
+              name="home"
+              component={Home}
+              options={readHeaderOption}
+            />
+            <Stack.Screen
+              name="main"
+              component={Main}
+              // options={mainHeaderOption}
+            />
+            <Stack.Screen
+              name="audio"
+              component={Audio}
+              // options={mainHeaderOption}
+            />
+            <Stack.Screen
+              name="rssDetail"
+              component={RssDetail}
+              options={rssDeatilHeaderOption}
+            />
+            <Stack.Screen
+              name="contentDetail"
+              component={ContentDetail}
+              options={contentDeatilHeaderOption}
+            />
+          </Stack.Navigator>
+        </NavigationContainer>
+      </SafeAreaProvider>
     </>
   );
 };
