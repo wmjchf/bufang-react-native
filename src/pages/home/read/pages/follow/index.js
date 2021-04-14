@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from 'react';
-import {View, FlatList} from 'react-native';
+import {View, FlatList, RefreshControl} from 'react-native';
 import {useDispatch, useSelector} from 'react-redux';
 // import {
 //   Menu,
@@ -11,33 +11,38 @@ import {getRssFollowListData} from '@/store/reducer/rssFollowList/action';
 import {RssItem} from '../components/RssItem';
 import {ListFooter} from '@/components/ListFooter';
 import StorageUtil from '@/libs/storage';
+import commonStyle from '@/style/common';
 
 const renderItem = ({item}) => {
   return <RssItem info={item} key={item.rssId} isFollow={true} />;
 };
 const Follow = () => {
-  // StorageUtil.clear();
   const dispatch = useDispatch();
-  const [isLoading, setIsLoading] = useState(false);
+
   const [refreshing] = useState(false);
-  let [more, setMore] = useState(true);
-  const {dataList, pageNum, size, total} = useSelector((state) => {
-    return state.rssFollowList;
-  });
+
+  const {dataList, pageNum, size, total, more, isLoading} = useSelector(
+    (state) => {
+      return state.rssFollowList;
+    },
+  );
   useEffect(() => {
     StorageUtil.get('bufUserId').then((bufUserId) => {
       dispatch(getRssFollowListData({pageSize: size, pageNum, bufUserId}));
     });
   }, []);
+
   const _loadData = () => {
-    if (pageNum * size > total) {
-      console.log('没有更多了');
-    } else {
-      dispatch(getRssFollowListData({pageSize: size, pageNum}));
+    if (pageNum * size < total) {
+      StorageUtil.get('bufUserId').then((bufUserId) => {
+        dispatch(getRssFollowListData({pageSize: size, pageNum, bufUserId}));
+      });
     }
   };
   const _refresh = () => {
-    dispatch(getRssFollowListData({pageSize: size, pageNum: 1}));
+    StorageUtil.get('bufUserId').then((bufUserId) => {
+      dispatch(getRssFollowListData({pageSize: size, pageNum: 1, bufUserId}));
+    });
   };
 
   return (
@@ -47,6 +52,14 @@ const Follow = () => {
         data={dataList}
         onEndReached={_loadData}
         onEndReachedThreshold={0.7}
+        refreshControl={
+          <RefreshControl
+            refreshing={refreshing}
+            onRefresh={_refresh}
+            tintColor={commonStyle.primary}
+            colors={[commonStyle.primary]}
+          />
+        }
         onRefresh={_refresh}
         refreshing={refreshing}
         keyExtractor={(item) => JSON.stringify(item.rssId)}

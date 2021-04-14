@@ -1,6 +1,10 @@
 import React, {useRef, useEffect} from 'react';
 import {NavigationContainer} from '@react-navigation/native';
-import {createStackNavigator} from '@react-navigation/stack';
+import {
+  createStackNavigator,
+  CardStyleInterpolators,
+  HeaderStyleInterpolators,
+} from '@react-navigation/stack';
 import {connect} from 'react-redux';
 import Toast from 'react-native-easy-toast';
 import {initGlobal} from '@/store/reducer/global/action';
@@ -12,6 +16,7 @@ import Audio from './pages/audio';
 import Login from './pages/login';
 import Code from './pages/smsCode';
 import RssDetail from './pages/rssDetail';
+import ContentDetail from './pages/contentDetail';
 
 const Stack = createStackNavigator();
 
@@ -23,41 +28,69 @@ const App = (porps) => {
     global.toast = toast.current;
     global.loading = loading.current;
   }, []);
-  // const mainHeaderOption = {
-  //   title: '不方科技',
-  //   headerStyle: {
-  //     backgroundColor: porps.theme.mainColor,
-  //   },
-  //   headerTintColor: '#fff',
-  //   headerTitleStyle: {
-  //     fontWeight: 'bold',
-  //   },
-  // };
+  const commonHeaderOption = {
+    headerStyle: {
+      backgroundColor: porps.theme.mainColor,
+    },
+    headerTintColor: '#fff',
+    headerTitleStyle: {
+      fontWeight: 'bold',
+    },
+    headerTitleAlign: 'center',
+    headerLeft: '',
+    headerStyleInterpolator: HeaderStyleInterpolators.forStatic,
+    cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS,
+  };
+  const splashDeatilHeaderOption = {
+    headerShown: false,
+  };
+  const readHeaderOption = {
+    ...commonHeaderOption,
+    title: '阅读',
+  };
+  const contentDeatilHeaderOption = {
+    title: '新闻',
+    ...commonHeaderOption,
+  };
+  const rssDeatilHeaderOption = {
+    title: '详情',
+    ...commonHeaderOption,
+  };
+  const loginHeaderOption = {
+    headerShown: false,
+    headerStyleInterpolator: HeaderStyleInterpolators.forStatic,
+    cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS,
+  };
+  const codeHeaderOption = {
+    headerShown: false,
+    headerStyleInterpolator: HeaderStyleInterpolators.forStatic,
+    cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS,
+  };
   return (
     <>
       <Toast ref={toast} />
       <Loading ref={loading} />
       <NavigationContainer>
-        <Stack.Navigator headerMode="none" initialRouteName="splash">
+        <Stack.Navigator initialRouteName="splash">
           <Stack.Screen
             name="splash"
             component={Splash}
-            // options={mainHeaderOption}
+            options={splashDeatilHeaderOption}
           />
           <Stack.Screen
             name="login"
             component={Login}
-            // options={mainHeaderOption}
+            options={loginHeaderOption}
           />
           <Stack.Screen
             name="code"
             component={Code}
-            // options={mainHeaderOption}
+            options={codeHeaderOption}
           />
           <Stack.Screen
             name="home"
             component={Home}
-            // options={mainHeaderOption}
+            options={readHeaderOption}
           />
           <Stack.Screen
             name="main"
@@ -72,7 +105,12 @@ const App = (porps) => {
           <Stack.Screen
             name="rssDetail"
             component={RssDetail}
-            // options={mainHeaderOption}
+            options={rssDeatilHeaderOption}
+          />
+          <Stack.Screen
+            name="contentDetail"
+            component={ContentDetail}
+            options={contentDeatilHeaderOption}
           />
         </Stack.Navigator>
       </NavigationContainer>

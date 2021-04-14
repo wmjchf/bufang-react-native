@@ -14,6 +14,10 @@ export const RssItem = (props) => {
   const toRssDetail = () => {
     navigation.navigate('rssDetail', {rssId: info.rssId});
   };
+  const toContentDetail = () => {
+    console.log(info.contentLink);
+    navigation.navigate('contentDetail', {uri: info.contentLink});
+  };
   const _collectionRss = async () => {
     const bufUserId = await StorageUtil.get('bufUserId');
     const res = await collectionRss({...info.content}, bufUserId);
@@ -61,48 +65,50 @@ export const RssItem = (props) => {
           </View>
         </TouchableOpacity>
       )}
-      <View
-        style={[
-          styles.rssItemMid,
-          info.rssMsgContent ? '' : styles.rssItemMidCol,
-        ]}>
+      <TouchableOpacity onPress={toContentDetail}>
         <View
           style={[
-            styles.rssItemMidLeft,
-            info.rssMsgImage ? '' : styles.rssItemMidLeftNo,
-            info.rssMsgContent ? '' : styles.rssItemMidLeftNo,
+            styles.rssItemMid,
+            info.rssMsgContent ? '' : styles.rssItemMidCol,
           ]}>
-          <Text style={styles.rssItemMidLeftTitle}>{info.rssMsgTitle}</Text>
+          <View
+            style={[
+              styles.rssItemMidLeft,
+              info.rssMsgImage ? '' : styles.rssItemMidLeftNo,
+              info.rssMsgContent ? '' : styles.rssItemMidLeftNo,
+            ]}>
+            <Text style={styles.rssItemMidLeftTitle}>{info.rssMsgTitle}</Text>
 
-          {info.rssMsgContent ? (
-            <Text style={styles.rssItemMidLeftContent} numberOfLines={3}>
-              {info.rssMsgContent}
-            </Text>
+            {info.rssMsgContent ? (
+              <Text style={styles.rssItemMidLeftContent} numberOfLines={3}>
+                {info.rssMsgContent}
+              </Text>
+            ) : (
+              <Text />
+            )}
+          </View>
+
+          {info.rssMsgImage ? (
+            <View
+              style={[
+                styles.rssItemMidRight,
+                info.rssMsgContent ? '' : styles.rssItemMidRightCol,
+              ]}>
+              <Image
+                style={[styles.rssItemMidRightImage]}
+                source={{
+                  uri: info.rssMsgImage,
+                }}
+              />
+            </View>
           ) : (
             <Text />
           )}
         </View>
-
-        {info.rssMsgImage ? (
-          <View
-            style={[
-              styles.rssItemMidRight,
-              info.rssMsgContent ? '' : styles.rssItemMidRightCol,
-            ]}>
-            <Image
-              style={[styles.rssItemMidRightImage]}
-              source={{
-                uri: info.rssMsgImage,
-              }}
-            />
-          </View>
-        ) : (
-          <Text />
-        )}
-      </View>
+      </TouchableOpacity>
       {isFollow ? (
         <View style={styles.rssItemBottom}>
-          <Text style={styles.publishTime}>{info.publishTime}</Text>
+          <Text style={styles.publishTime}>{info.link}</Text>
           {/* <Image
           style={styles.rssItemBottomImageCollection}
           source={require('@/assets/image/collection.png')}

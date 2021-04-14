@@ -7,3 +7,5 @@ export const HANDLESUCCESS = `${prefix}/HANDLESUCCESS`;
 export const HANDLESFAIL = `${prefix}/HANDLESFAIL`;
 // 重置列表数据
 export const RESET = `${prefix}/RESET`;
+// 加载数据
+export const LOAD = `${prefix}/LOAD`;

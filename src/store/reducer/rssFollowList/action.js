@@ -1,4 +1,4 @@
-import {HANDLESUCCESS, HANDLESFAIL, RESET} from './action-types';
+import {HANDLESUCCESS, HANDLESFAIL, RESET, LOAD} from './action-types';
 import {getRssFollowList} from '@/api/rssRecommendList';
 import {formatTime} from '@/utils/format';
 // import { rando} from "@/utils";
@@ -15,8 +15,8 @@ const formatPContent = (reg, content) => {
 };
 export const getRssFollowListData = (data) => {
   return async (dispatch) => {
+    dispatch(initLoading());
     const res = await getRssFollowList(data);
-
     res.data.data.filter((item) => {
       return item.rssContent.rss;
     });
@@ -43,6 +43,8 @@ export const getRssFollowListData = (data) => {
           collectionFlag: item.collectionFlag,
           content: item,
           collectionId: item.collectionId,
+          link: item.rssContent.channel.link,
+          contentLink: item.rssContent.channel.item[0].link,
         };
       });
     dispatch(handleSuccess(list || [], res.data.pageNum, res.data.total));
@@ -54,6 +56,11 @@ export const handleSuccess = (data, pageNum, total) => {
     dataList: data,
     pageNum,
     total,
+  };
+};
+export const initLoading = () => {
+  return {
+    type: LOAD,
   };
 };
 export const handleFail = () => {

@@ -16,19 +16,19 @@ const renderItem = ({item}) => {
 };
 const Recommend = () => {
   const dispatch = useDispatch();
-  const [isLoading, setIsLoading] = useState(false);
+
   const [refreshing] = useState(false);
-  let [more, setMore] = useState(true);
-  const {dataList, pageNum, size, total} = useSelector((state) => {
-    return state.rssRecommendList;
-  });
+
+  const {dataList, pageNum, size, total, isLoading, more} = useSelector(
+    (state) => {
+      return state.rssRecommendList;
+    },
+  );
   useEffect(() => {
     dispatch(getRssRecommendListData({pageSize: size, pageNum}));
   }, []);
   const _loadData = () => {
-    if (pageNum * size > total) {
-      console.log('没有更多了');
-    } else {
+    if (pageNum * size < total) {
       dispatch(getRssRecommendListData({pageSize: size, pageNum}));
     }
   };

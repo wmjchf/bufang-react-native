@@ -2,29 +2,26 @@ class Data {
   constructor(data) {
     this.value = data;
   }
-  // initPageInfo(pageNum, total) {
-  //   this.value = {
-  //     ...this.value,
-  //     pageNum,
-  //     total,
-  //   };
-  //   return this.value;
-  // }
+  initLoading() {
+    this.value = {
+      ...this.value,
+      isLoading: true,
+    };
+    return this.value;
+  }
   handleSuccess(list, pageNum, total) {
     if (pageNum === 1) {
-      this.value = {
-        ...this.value,
-        dataList: [],
-        pageNum: 1,
-        total: 0,
-      };
+      this.reset();
     }
     const dataList = this.value.dataList.concat(list);
+    const more = pageNum * this.value.size < total;
     this.value = {
       ...this.value,
       dataList,
       pageNum,
       total,
+      more,
+      isLoading: false,
     };
     return this.value;
   }
@@ -44,6 +41,8 @@ class Data {
       dataList: [],
       pageNum: 1,
       total: 0,
+      more: false,
+      isLoading: true,
     };
     return this.value;
   }
@@ -60,5 +59,7 @@ const data = {
   pageNum: 1,
   total: 0,
   size: 10,
+  more: false,
+  isLoading: true,
 };
 export default Data.getInstance(data);

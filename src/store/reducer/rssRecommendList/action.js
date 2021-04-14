@@ -1,4 +1,4 @@
-import {HANDLESUCCESS, HANDLESFAIL, RESET} from './action-types';
+import {HANDLESUCCESS, HANDLESFAIL, RESET, LOAD} from './action-types';
 import {getRssRecommendList} from '@/api/rssRecommendList';
 import {formatTime} from '@/utils/format';
 // import { rando} from "@/utils";
@@ -15,8 +15,8 @@ const formatPContent = (reg, content) => {
 };
 export const getRssRecommendListData = (data) => {
   return async (dispatch) => {
+    dispatch(initLoading());
     const res = await getRssRecommendList(data);
-
     let list = res.data.data.filter((item) => {
       return item.rssContent.rss;
     });
@@ -30,7 +30,7 @@ export const getRssRecommendListData = (data) => {
         regP,
         item.rssContent.rss.channel.item[0].description,
       );
-
+      console.log(item.rssContent.rss.channel.item[0].link);
       return {
         rssId: item.rss.rssId,
         rssName: item.rssContent.rss.channel.title,
@@ -39,9 +39,16 @@ export const getRssRecommendListData = (data) => {
         rssMsgImage: rssMsgImage && rssMsgImage[1],
         publishTime: formatTime(item.rssContent.rss.channel.lastBuildDate),
         rssMsgContent: rssMsgContent,
+        link: item.rssContent.rss.channel.link,
+        contentLink: item.rssContent.rss.channel.item[0].link,
       };
     });
     dispatch(handleSuccess(list, res.data.pageNum, res.data.total));
+  };
+};
+export const initLoading = () => {
+  return {
+    type: LOAD,
   };
 };
 export const handleSuccess = (data, pageNum, total) => {

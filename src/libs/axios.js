@@ -60,6 +60,9 @@ const checkSelfStatus = async (response) => {
           const res = await axiosGet('/user/accessTokenRefresh', {
             refreshToken: refreshToken,
           });
+          if (res.code === 91004) {
+            StorageUtil.clear();
+          }
           await StorageUtil.save('accessToken', res.data.accessToken);
           await StorageUtil.save('refreshToken', res.data.refreshToken);
           // config.headers.Authorization = `Bearer ${res.access_token}`;

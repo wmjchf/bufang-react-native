@@ -1,10 +1,11 @@
 import React from 'react';
-import {View, Text} from 'react-native';
+import {View, Text, StatusBar} from 'react-native';
 import {useSelector} from 'react-redux';
 import {createMaterialTopTabNavigator} from '@react-navigation/material-top-tabs';
 import Follow from './pages/follow/index.js';
 import Recommend from './pages/recommend/index.js';
 import {Nav} from '@/components/Nav';
+import commonStyle from '@/style/common';
 
 const Tab = createMaterialTopTabNavigator();
 
@@ -60,7 +61,8 @@ const Read = (props) => {
 
   return (
     <>
-      <Nav title="阅读" />
+      {/* <Nav title="阅读" /> */}
+      <StatusBar backgroundColor={commonStyle.primary} />
       <Tab.Navigator tabBarOptions={tabBarOptions} lazy={true}>
         {generateTab()}
       </Tab.Navigator>
