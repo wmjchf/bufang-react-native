@@ -10,6 +10,7 @@
 #import <React/RCTConvert.h>
 #import <React/RCTEventDispatcher.h>
 #import <UMSMS/UMSMS.h>
+#import <React/RCTLog.h>
 
 @implementation UMengSMSPlugin
 
@@ -19,9 +20,23 @@ RCT_EXPORT_METHOD(getVerificationCode:(NSString * _Nonnull)number emplateID:(NSS
 {
   [UMSMS getVerificationCodeWithPhoneNumber:number templateID:templateID complete:^(NSDictionary * _Nonnull resultDic) {
     if ([resultDic[@"success"] boolValue]==true) {
-      successCallback(resultDic);
+//      NSArray *result = []
+      NSString *jsonString = nil;
+        NSError *error = nil;
+        NSData *jsonData = [NSJSONSerialization dataWithJSONObject:resultDic
+                                                           options:kNilOptions //TODO: NSJSONWritingPrettyPrinted  // kNilOptions
+                                                             error:&error];
+        if ([jsonData length] && (error == nil))
+        {
+          jsonString = [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding] ;
+        }else{
+          jsonString=@"";
+        }
+        
+       
+      successCallback(@[jsonString]);
     }else{
-      failCallback(resultDic);
+      failCallback(@[resultDic]);
     }
   }];
 }
@@ -30,9 +45,9 @@ RCT_EXPORT_METHOD(commitVerificationCode:(NSString * _Nonnull)number vCode:(NSSt
 {
   [UMSMS commitWithPhoneNumber:number vCode:vCode complete:^(NSDictionary * _Nonnull resultDic) {
     if (![resultDic[@"data"] isKindOfClass:[NSNull class]] && [resultDic[@"data"][@"verifyStatus"] boolValue]==true) {
-      successCallback(resultDic);
+      successCallback(@[resultDic]);
     }else{
-      failCallback(resultDic);
+      failCallback(@[resultDic]);
 
     }
   }];
