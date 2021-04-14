@@ -29,7 +29,7 @@ const Login = (props) => {
           setting.smsTemplateId,
         );
 
-        props.navigation.push('code', {phoneNum, token});
+        props.navigation.replace('code', {phoneNum, token});
       } catch (error) {
         global.toast.show(error, 1000);
       } finally {

@@ -18,11 +18,11 @@ const Splash = () => {
     const accessToken = await StorageUtil.get('accessToken');
     if (accessToken) {
       setTimeout(() => {
-        navigation.navigate('home');
+        navigation.replace('home');
       }, 5000);
     } else {
       setTimeout(() => {
-        navigation.navigate('login');
+        navigation.replace('login');
       }, 5000);
     }
   };

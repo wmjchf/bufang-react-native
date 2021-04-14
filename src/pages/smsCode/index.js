@@ -36,7 +36,7 @@ const Code = (props) => {
         StorageUtil.save('refreshToken', refreshToken);
         StorageUtil.save('bufUserId', bufUserId);
         StorageUtil.save('bufUserName', bufUserName);
-        props.navigation.push('home');
+        props.navigation.replace('home');
       } catch (error) {
         console.log(error);
       }
