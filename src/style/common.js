@@ -10,6 +10,6 @@ const commonStyle = {
   fontSize9: 19,
   fontSize10: 20,
   // 颜色
-  primary: '#38a28a',
+  primary: '#0096FF',
 };
 export default commonStyle;

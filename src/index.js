@@ -18,6 +18,7 @@ import Login from './pages/login';
 import Code from './pages/smsCode';
 import RssDetail from './pages/rssDetail';
 import ContentDetail from './pages/contentDetail';
+import CollectionList from './pages/collectionList';
 
 const Stack = createStackNavigator();
 
@@ -32,6 +33,7 @@ const App = (porps) => {
   const commonHeaderOption = {
     headerStyle: {
       backgroundColor: porps.theme.mainColor,
+      elevation: 0,
     },
     headerTintColor: '#fff',
     headerTitleStyle: {
@@ -46,8 +48,9 @@ const App = (porps) => {
     headerShown: false,
   };
   const readHeaderOption = {
-    ...commonHeaderOption,
-    title: '阅读',
+    headerShown: false,
+    // ...commonHeaderOption,
+    // title: '阅读',
   };
   const contentDeatilHeaderOption = {
     title: '新闻',
@@ -55,6 +58,10 @@ const App = (porps) => {
   };
   const rssDeatilHeaderOption = {
     title: '详情',
+    ...commonHeaderOption,
+  };
+  const collectionListHeaderOption = {
+    title: '我的收藏',
     ...commonHeaderOption,
   };
   const loginHeaderOption = {
@@ -113,6 +120,11 @@ const App = (porps) => {
               name="contentDetail"
               component={ContentDetail}
               options={contentDeatilHeaderOption}
+            />
+            <Stack.Screen
+              name="collectionList"
+              component={CollectionList}
+              options={collectionListHeaderOption}
             />
           </Stack.Navigator>
         </NavigationContainer>

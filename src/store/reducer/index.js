@@ -6,6 +6,7 @@ import {categoryList} from './categoryList';
 import {global} from './global';
 import {rssRecommendList} from './rssRecommendList';
 import {rssFollowList} from './rssFollowList';
+import {rssCollection} from './rssCollection';
 
 export default combineReducers({
   tabbar,
@@ -15,4 +16,5 @@ export default combineReducers({
   global,
   rssRecommendList,
   rssFollowList,
+  rssCollection,
 });

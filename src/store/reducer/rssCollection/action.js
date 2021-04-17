@@ -1,5 +1,5 @@
 import {HANDLESUCCESS, HANDLESFAIL, RESET, LOAD} from './action-types';
-import {getRssRecommendList} from '@/api/rssRecommendList';
+import {getCollectionList} from '@/api/rssRecommendList';
 import {formatTime} from '@/utils/format';
 // import { rando} from "@/utils";
 const formatPContent = (reg, content) => {
@@ -13,41 +13,40 @@ const formatPContent = (reg, content) => {
   }
   return str;
 };
-export const getRssRecommendListData = (data) => {
+export const getRssCollectionListData = (data) => {
   return async (dispatch) => {
     dispatch(initLoading());
-    const res = await getRssRecommendList(data);
-    let list = res.data.data.filter((item) => {
-      return item.rssContent.rss;
+    const res = await getCollectionList(data);
+
+    const _data = res.data.data.map((item) => {
+      return JSON.parse(item.collectionText);
     });
-    list = list.map((item) => {
+    const list = _data.map((item) => {
       const regImage = /src="([^"]*)"/g;
       const regP = /<p>(.*?)<\/p>/g;
       const rssMsgImage = regImage.exec(
-        item.rssContent.rss.channel.item[0].description,
+        item.rssContent.channel.item[0].description,
       );
       const rssMsgContent = formatPContent(
         regP,
-        item.rssContent.rss.channel.item[0].description,
+        item.rssContent.channel.item[0].description,
       );
       return {
-        rssId: item.rss.rssId,
-        rssName: item.rssContent.rss.channel.title,
+        rssId: item.rssContent.channel.item[0].link,
+        rssName: item.rssContent.channel.title,
         rssImage: item.rss.rssImage,
-        rssMsgTitle: item.rssContent.rss.channel.item[0].title,
+        rssMsgTitle: item.rssContent.channel.item[0].title,
         rssMsgImage: rssMsgImage && rssMsgImage[1],
-        publishTime: formatTime(item.rssContent.rss.channel.lastBuildDate),
+        publishTime: formatTime(item.rssContent.channel.lastBuildDate),
         rssMsgContent: rssMsgContent,
-        link: item.rssContent.rss.channel.link,
-        contentLink: item.rssContent.rss.channel.item[0].link,
+        collectionFlag: item.collectionFlag,
+        content: item,
+        collectionId: item.collectionId,
+        link: item.rssContent.channel.link,
+        contentLink: item.rssContent.channel.item[0].link,
       };
     });
-    dispatch(handleSuccess(list, res.data.pageNum, res.data.total));
-  };
-};
-export const initLoading = () => {
-  return {
-    type: LOAD,
+    dispatch(handleSuccess(list || [], res.data.pageNum, res.data.total));
   };
 };
 export const handleSuccess = (data, pageNum, total) => {
@@ -56,6 +55,11 @@ export const handleSuccess = (data, pageNum, total) => {
     dataList: data,
     pageNum,
     total,
+  };
+};
+export const initLoading = () => {
+  return {
+    type: LOAD,
   };
 };
 export const handleFail = () => {

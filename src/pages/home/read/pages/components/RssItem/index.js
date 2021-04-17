@@ -15,7 +15,6 @@ export const RssItem = (props) => {
     navigation.navigate('rssDetail', {rssId: info.rssId});
   };
   const toContentDetail = () => {
-    console.log(info.contentLink);
     navigation.navigate('contentDetail', {uri: info.contentLink});
   };
   const _collectionRss = async () => {
@@ -23,14 +22,15 @@ export const RssItem = (props) => {
     const res = await collectionRss({...info.content}, bufUserId);
     info.collectionId = res.data;
     if (res.code === 200) {
+      global.toast.show('收藏成功', 1000);
       setIsCollection(true);
     }
   };
   const unCollectionRss = async () => {
     // const bufUserId = await StorageUtil.get('bufUserId');
     const res = await cancelCollection({collectionId: info.collectionId});
-    console.log(res);
     if (res.code === 200) {
+      global.toast.show('取消收藏', 1000);
       setIsCollection(false);
     }
   };
@@ -129,12 +129,12 @@ export const RssItem = (props) => {
                 />
               </TouchableOpacity>
             )}
-            <TouchableOpacity>
+            {/* <TouchableOpacity>
               <Image
                 style={styles.rssItemBottomImageShare}
                 source={require('@/assets/image/share.png')}
               />
-            </TouchableOpacity>
+            </TouchableOpacity> */}
           </View>
         </View>
       ) : (

@@ -20,6 +20,7 @@ const MainApp = (props) => {
       },
       title: tabbarItem.title,
     };
+
     return (
       <TabNav.Screen
         key={tabbarItem.name}
@@ -29,6 +30,7 @@ const MainApp = (props) => {
       />
     );
   };
+
   return (
     <TabNav.Navigator tabBarOptions={navigatorOptions}>
       {tabbar.map((tabbarItem) => {

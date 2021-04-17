@@ -15,3 +15,6 @@ export const collectionRss = (data, bufUserId) =>
 
 export const cancelCollection = (data) =>
   axiosDelete('/rssCollection/delete', data);
+
+export const getCollectionList = (data) =>
+  axiosGet('/rssCollection/list', data);

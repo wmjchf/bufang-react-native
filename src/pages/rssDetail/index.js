@@ -26,7 +26,7 @@ const RssDetail = (props) => {
   const [rssImage, setRssImage] = useState('123');
   const [rssName, setRssName] = useState('');
   const [isFollow, setIsFollow] = useState(false);
-  const {height} = Dimensions.get('screen');
+  const {height} = Dimensions.get('window');
   const [elementHeight, setElementHeight] = useState(0);
   const element = useRef(null);
   const formatPContent = (reg, content) => {
@@ -63,7 +63,9 @@ const RssDetail = (props) => {
         publishTime: formatTime(
           result.data.rssContent.rss.channel.lastBuildDate,
         ),
+        link: result.data.rssContent.rss.channel.link,
         rssMsgContent: rssMsgContent,
+        contentLink: result.data.rssContent.rss.channel.item[0].link,
       };
     });
     setRssContentList(list);
@@ -114,7 +116,7 @@ const RssDetail = (props) => {
             )}
           </TouchableOpacity>
         </View>
-        <View style={{height: height - elementHeight}}>
+        <View style={[{height: height - elementHeight}, styles.flatList]}>
           <FlatList
             renderItem={renderItem}
             data={rssContentList}

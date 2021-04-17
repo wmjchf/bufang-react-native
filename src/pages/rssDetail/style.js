@@ -42,6 +42,9 @@ const styles = StyleSheet.create({
   followBtnText: {
     color: commonStyle.primary,
   },
+  flatList: {
+    paddingBottom: 10,
+  },
 });
 
 export default styles;
