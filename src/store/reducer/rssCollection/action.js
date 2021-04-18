@@ -17,9 +17,10 @@ export const getRssCollectionListData = (data) => {
   return async (dispatch) => {
     dispatch(initLoading());
     const res = await getCollectionList(data);
-
     const _data = res.data.data.map((item) => {
-      return JSON.parse(item.collectionText);
+      const collection = JSON.parse(item.collectionText);
+      collection.collectionFlag = item.collectionFlag;
+      return collection;
     });
     const list = _data.map((item) => {
       const regImage = /src="([^"]*)"/g;

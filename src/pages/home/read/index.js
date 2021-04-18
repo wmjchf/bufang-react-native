@@ -3,9 +3,11 @@ import {View, Text, StatusBar} from 'react-native';
 import {useSelector} from 'react-redux';
 import {createMaterialTopTabNavigator} from '@react-navigation/material-top-tabs';
 import Follow from './pages/follow/index.js';
+import SafeAreaView from 'react-native-safe-area-view';
 import Recommend from './pages/recommend/index.js';
 import {Nav} from '@/components/Nav';
 import commonStyle from '@/style/common';
+import styles from '../my/style.js';
 
 const Tab = createMaterialTopTabNavigator();
 
@@ -60,12 +62,12 @@ const Read = (props) => {
   };
 
   return (
-    <>
+    <SafeAreaView style={styles.my}>
       <Nav title="阅读" />
       <Tab.Navigator tabBarOptions={tabBarOptions} lazy={true}>
         {generateTab()}
       </Tab.Navigator>
-    </>
+    </SafeAreaView>
   );
 };
 export default Read;

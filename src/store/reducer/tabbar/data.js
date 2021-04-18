@@ -4,6 +4,7 @@
 // import Person from '@/pages/main/person/index.js';
 import Read from '@/pages/home/read/index.js';
 import My from '@/pages/home/my/index.js';
+import Rss from '@/pages/home/rss/index.js';
 class Data {
   constructor(data) {
     this.value = data;
@@ -24,6 +25,12 @@ const data = [
     icon: 'book',
     component: Read,
   },
+  // {
+  //   name: 'rss',
+  //   title: '订阅源',
+  //   icon: 'football-outline',
+  //   component: Rss,
+  // },
   {
     name: 'my',
     title: '我的',

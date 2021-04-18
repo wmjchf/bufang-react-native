@@ -19,6 +19,8 @@ import Code from './pages/smsCode';
 import RssDetail from './pages/rssDetail';
 import ContentDetail from './pages/contentDetail';
 import CollectionList from './pages/collectionList';
+import FollowList from './pages/followList';
+import Setting from './pages/setting';
 
 const Stack = createStackNavigator();
 
@@ -55,14 +57,30 @@ const App = (porps) => {
   const contentDeatilHeaderOption = {
     title: '新闻',
     ...commonHeaderOption,
+    headerStyleInterpolator: HeaderStyleInterpolators.forStatic,
+    cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS,
   };
   const rssDeatilHeaderOption = {
     title: '详情',
     ...commonHeaderOption,
+    headerStyleInterpolator: HeaderStyleInterpolators.forStatic,
+    cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS,
   };
   const collectionListHeaderOption = {
     title: '我的收藏',
     ...commonHeaderOption,
+    headerStyleInterpolator: HeaderStyleInterpolators.forStatic,
+    cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS,
+  };
+  const followListHeaderOption = {
+    title: '我的关注',
+    ...commonHeaderOption,
+  };
+  const SettingHeaderOption = {
+    title: '设置',
+    ...commonHeaderOption,
+    headerStyleInterpolator: HeaderStyleInterpolators.forStatic,
+    cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS,
   };
   const loginHeaderOption = {
     headerShown: false,
@@ -125,6 +143,16 @@ const App = (porps) => {
               name="collectionList"
               component={CollectionList}
               options={collectionListHeaderOption}
+            />
+            <Stack.Screen
+              name="followList"
+              component={FollowList}
+              options={followListHeaderOption}
+            />
+            <Stack.Screen
+              name="setting"
+              component={Setting}
+              options={SettingHeaderOption}
             />
           </Stack.Navigator>
         </NavigationContainer>
