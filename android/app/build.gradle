@@ -152,6 +152,12 @@ android {
             keyAlias 'androiddebugkey'
             keyPassword 'android'
         }
+        release {
+            keyAlias 'bufangkey' //别名
+            keyPassword '19961111' //密钥密码 之前设置秘钥口令
+            storeFile file('D:/bufang.jks') //my-release-key.keystore文件的绝对路径
+            storePassword '19961111' //存储密码
+        }
     }
     buildTypes {
         debug {
@@ -168,16 +174,14 @@ android {
 
     // applicationVariants are e.g. debug, release
     applicationVariants.all { variant ->
-        variant.outputs.each { output ->
-            // For each separate APK per architecture, set a unique version code as described here:
-            // https://developer.android.com/studio/build/configure-apk-splits.html
-            def versionCodes = ["armeabi-v7a": 1, "x86": 2, "arm64-v8a": 3, "x86_64": 4]
-            def abi = output.getFilter(OutputFile.ABI)
-            if (abi != null) {  // null for the universal-debug, universal-release variants
-                output.versionCodeOverride =
-                        versionCodes.get(abi) * 1048576 + defaultConfig.versionCode
+        // 当构建类型是release时
+        if (variant.buildType.name == "release") {
+            variant.outputs.all {
+                // 打印apk的路径
+                println(outputFile.parent)
+                // 修改apk的文件名
+                outputFileName =  "${new Date().format("yyyy-MM-dd")}_${buildType.name}_${defaultConfig.versionCode}${defaultConfig.versionName}.apk"
             }
-
         }
     }
 }

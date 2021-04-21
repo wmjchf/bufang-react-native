@@ -17,9 +17,9 @@ import styles from './style';
 const renderItem = ({item}) => {
   return <FollowItem info={item} key={item.rssId} />;
 };
-const MyRssList = () => {
+const MyRssList = (props) => {
   const dispatch = useDispatch();
-
+  const {isShow} = props;
   const [refreshing] = useState(false);
 
   const {dataList, pageNum, size, total, more, isLoading} = useSelector(
@@ -47,27 +47,29 @@ const MyRssList = () => {
   };
 
   return (
-    <View style={styles.myRss}>
-      <FlatList
-        renderItem={renderItem}
-        data={dataList}
-        onEndReached={_loadData}
-        onEndReachedThreshold={0.7}
-        style={styles.myRssList}
-        refreshControl={
-          <RefreshControl
-            refreshing={refreshing}
-            onRefresh={_refresh}
-            tintColor={commonStyle.primary}
-            colors={[commonStyle.primary]}
-          />
-        }
-        onRefresh={_refresh}
-        refreshing={refreshing}
-        keyExtractor={(item) => JSON.stringify(item.rssId)}
-        ListFooterComponent={<ListFooter more={more} isLoading={isLoading} />}
-      />
-    </View>
+    // <View style={styles.myRss}>
+    <FlatList
+      renderItem={renderItem}
+      data={dataList}
+      onEndReached={_loadData}
+      onEndReachedThreshold={0.1}
+      style={[styles.myRssList, isShow ? '' : styles.noShow]}
+      refreshControl={
+        <RefreshControl
+          refreshing={refreshing}
+          onRefresh={_refresh}
+          tintColor={commonStyle.primary}
+          colors={[commonStyle.primary]}
+        />
+      }
+      onRefresh={_refresh}
+      refreshing={refreshing}
+      keyExtractor={(item) => JSON.stringify(item.rssId)}
+      ListFooterComponent={() => (
+        <ListFooter more={more} isLoading={isLoading} />
+      )}
+    />
+    // </View>
   );
 };
 export default MyRssList;

@@ -9,6 +9,11 @@ const styles = StyleSheet.create({
   myRssList: {
     backgroundColor: '#fff',
   },
+  noShow: {
+    width: 0,
+    height: 0,
+    display: 'none',
+  },
 });
 
 export default styles;

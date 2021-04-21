@@ -6,6 +6,13 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
     flex: 1,
   },
+  remmendRssList: {
+    backgroundColor: '#fff',
+  },
+  remmendRss: {
+    flex: 1,
+    backgroundColor: '#fff',
+  },
   foreground: {
     height: 250,
     justifyContent: 'center',
@@ -123,9 +130,44 @@ const styles = StyleSheet.create({
     width: 20,
     height: 20,
   },
-  itemContainer: {
-    flexDirection: 'row',
+  header: {
     justifyContent: 'flex-start',
+    overflow: 'hidden',
+    paddingTop: 20,
+  },
+  headerConatiner: {
+    height: '100%',
+    width: '100%',
+  },
+  background: {
+    width: '100%',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  tabbarContainer: {
+    flexDirection: 'row',
+    height: 50,
+    backgroundColor: '#fff',
+  },
+  backgroundTitle: {
+    color: '#fff',
+    fontSize: 20,
+  },
+  tabbarItem: {
+    position: 'relative',
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  tabbarItemTitle: {
+    color: '#333',
+  },
+  tabbarItemActive: {
+    width: '50%',
+    height: 2,
+    backgroundColor: commonStyle.primary,
+    position: 'absolute',
+    bottom: 0,
   },
 });
 

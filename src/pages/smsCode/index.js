@@ -30,6 +30,7 @@ const Code = (props) => {
       try {
         loading.current.showLoading();
         const result = await login({phoneNumber, umengToken, umengVcode});
+        console.log(result, '123');
         const {accessToken, refreshToken} = result.data;
         const {bufUserId, bufUserName} = result.data.bufProfileVo;
         StorageUtil.save('accessToken', accessToken);
